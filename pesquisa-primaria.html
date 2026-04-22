@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pesquisa Primária — KOBE SaaS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400;16..144,500;16..144,600;16..144,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+:root{
+  --bg:    #F0EEED;
+  --bg2:   #EFEFEF;
+  --bg3:   #D9D9D9;
+  --white: #FFFFFF;
+  --ink:   #000000;
+  --ink2:  #1A1A1A;
+  --mid:   #D6D2CC;
+  --bdr:   #D5D5D3;
+  --muted: #1A1A1A;
+  --dim:   #6B6866;
+  --fh:'Montagu Slab',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink2);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:60px;background:rgba(240,238,237,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);}
+.nav-logo-svg{height:20px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:2px;}.nav-links a{font-size:12.5px;font-weight:500;color:var(--dim);text-decoration:none;padding:6px 13px;border-radius:3px;transition:color .15s,background .15s;}.nav-links a:hover{color:var(--ink);background:var(--bg2);}.nav-links a.active{color:var(--ink);background:var(--bg3);font-weight:600;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 52px 80px;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:80px 80px;opacity:.5;}
+.hero>*{position:relative;z-index:1;}
+.h-ch{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:28px;}
+.h-ch::before{content:'';display:block;width:28px;height:1px;background:var(--bdr);}
+.hero-h1{font-family:var(--fh);font-size:clamp(52px,8vw,120px);font-weight:700;line-height:.96;letter-spacing:-.03em;color:var(--ink);margin-bottom:28px;}
+.hero-h1 em{font-style:italic;color:var(--ink);}
+.hero-lead{font-size:17px;font-weight:300;color:var(--dim);max-width:520px;line-height:1.82;margin-bottom:60px;}
+.hero-nums{display:flex;flex-wrap:wrap;gap:1px;background:var(--bdr);border:1px solid var(--bdr);}.hn{flex:1;min-width:160px;background:var(--bg);padding:28px 24px;transition:background .2s;}.hn:hover{background:var(--bg2);}.hn-v{font-family:var(--fh);font-size:44px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:6px;}.hn-l{font-size:12px;color:var(--dim);line-height:1.4;}
+
+/* SECTIONS */
+.section{padding:88px 52px;}.section+.section{border-top:1px solid var(--bdr);}.section.tinted{background:var(--bg2);}.section.darker{background:var(--bg3);}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--bdr);}
+.s-h2{font-family:var(--fh);font-size:clamp(28px,3.8vw,54px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:14px;}.s-h3{font-family:var(--fh);font-size:clamp(22px,2.5vw,36px);font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.02em;margin-bottom:14px;}.s-lead{font-size:15.5px;font-weight:300;color:var(--dim);max-width:580px;line-height:1.82;margin-bottom:52px;}
+
+/* METHOD BOX */
+.method-box{background:var(--white);border:1px solid var(--bdr);padding:44px 48px;margin-bottom:64px;}.method-top{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:24px;display:flex;align-items:center;gap:10px;}.method-top::before{content:'';display:block;width:18px;height:1px;background:var(--bdr);}.method-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;}.mc-label{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}.mc-val{font-family:var(--fh);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.25;}.mc-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+.method-note{margin-top:24px;padding:16px 18px;border-top:1px solid var(--bdr);font-size:13px;color:var(--dim);line-height:1.7;border-left:2px solid var(--ink2);padding-left:18px;}.method-note strong{color:var(--ink);}
+.method-clients{margin-top:24px;padding-top:20px;border-top:1px solid var(--bdr);}.mc-head{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}.mc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}.mc-seg{background:var(--bg);border:1px solid var(--bdr);padding:14px 16px;}.mc-seg-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--ink);}.mc-seg-names{font-size:12.5px;color:var(--dim);line-height:1.65;}
+
+/* HIGHLIGHT BAND */
+.hl-band{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.hl{background:var(--white);padding:30px 26px;transition:background .2s;}.hl:hover{background:var(--bg2);}.hl-n{font-family:var(--fh);font-size:54px;font-weight:700;line-height:1;margin-bottom:8px;color:var(--ink);}.hl-l{font-size:13px;color:var(--dim);line-height:1.5;}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.card{background:var(--white);padding:34px 30px;position:relative;overflow:hidden;transition:background .2s;}.card:hover{background:var(--bg2);}.card-bg-n{position:absolute;top:14px;right:20px;font-family:var(--fh);font-size:72px;font-weight:700;line-height:1;color:var(--bdr);pointer-events:none;transition:color .2s;}.card:hover .card-bg-n{color:var(--bg3);}
+.tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-bottom:12px;background:var(--bg2);color:var(--ink2);border:1px solid var(--bdr);}
+.card-big{font-family:var(--fh);font-size:44px;font-weight:700;line-height:1;display:block;margin-bottom:6px;color:var(--ink);}.card-h{font-family:var(--fh);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3;}.card-b{font-size:13.5px;color:var(--dim);line-height:1.78;}.card-b strong{color:var(--ink2);font-weight:500;}
+
+/* CHARTS */
+.charts{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:20px;margin-bottom:52px;}.chart{background:var(--white);border:1px solid var(--bdr);padding:28px 26px;}.ch-t{font-family:var(--fh);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;}.ch-n{font-size:12px;color:var(--dim);margin-bottom:22px;font-style:italic;}.br{margin-bottom:12px;}.br-meta{display:flex;justify-content:space-between;margin-bottom:5px;}.br-l{font-size:13px;color:var(--dim);}.br-v{font-size:13px;font-weight:600;color:var(--ink);}.br-track{height:4px;background:var(--bg3);border-radius:0;overflow:hidden;}.br-fill{height:100%;background:var(--ink);animation:fIn .9s cubic-bezier(.22,.61,.36,1) both;}.br-fill.mid{background:var(--ink2);}.br-fill.light{background:var(--bg3);}@keyframes fIn{from{width:0!important;}}
+
+/* STAT BAND */
+.sband{display:flex;flex-wrap:wrap;border:1px solid var(--bdr);background:var(--bdr);gap:1px;margin-bottom:52px;}.sb{flex:1;min-width:170px;background:var(--white);padding:30px 26px;transition:background .2s;}.sb:hover{background:var(--bg2);}.sb-n{font-family:var(--fh);font-size:52px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:8px;}.sb-l{font-size:12.5px;color:var(--dim);line-height:1.5;}
+
+/* TABLE */
+.ctable{border:1px solid var(--bdr);margin-bottom:52px;}.ct-head{display:grid;background:var(--bg3);border-bottom:1px solid var(--bdr);}.ct-row{display:grid;border-bottom:1px solid var(--bdr);transition:background .2s;}.ct-row:last-child{border-bottom:none;}.ct-row:hover{background:var(--bg2);}.ct-hcell{padding:14px 20px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--bdr);}.ct-hcell:last-child{border-right:none;}.ct-hcell.hl{color:var(--ink);}.ct-cell{padding:17px 20px;font-size:13.5px;color:var(--dim);line-height:1.5;border-right:1px solid var(--bdr);}.ct-cell:last-child{border-right:none;}.ct-cell:first-child{color:var(--ink2);font-weight:500;}.ct-cell.ok{color:var(--ink);font-weight:500;}.ct-cell.warn{color:var(--dim);font-style:italic;}.ct-cell.alert{color:var(--ink);font-weight:600;}.c2 .ct-head,.c2 .ct-row{grid-template-columns:1.2fr 1.6fr 1.6fr;}.c3 .ct-head,.c3 .ct-row{grid-template-columns:1.4fr 1fr 1fr 1fr;}
+
+/* PULL QUOTE */
+.pullquote{border-left:2px solid var(--ink);padding:20px 32px;background:var(--white);margin:40px 0;}.pq-t{font-family:var(--fh);font-size:20px;font-weight:400;font-style:italic;color:var(--ink);line-height:1.5;}.pq-c{display:block;margin-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
+
+/* NAV CARDS */
+.nav-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:0;}.nc{background:var(--white);padding:38px 34px;text-decoration:none;display:flex;flex-direction:column;gap:14px;transition:background .2s;}.nc:hover{background:var(--bg2);}.nc-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}.nc-title{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.02em;}.nc-desc{font-size:14px;color:var(--dim);line-height:1.7;flex:1;}.nc-cta{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:8px;transition:gap .2s;}.nc:hover .nc-cta{gap:12px;}
+
+/* OVERVIEW GRID */
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);}.ovc{background:var(--white);padding:32px 28px;}.ovc-t{font-family:var(--fh);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;}.ovc-list{list-style:none;}.ovc-list li{font-size:13.5px;color:var(--dim);padding:6px 0;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;gap:10px;line-height:1.55;}.ovc-list li:last-child{border-bottom:none;}.ovc-list li::before{content:'→';color:var(--bg3);flex-shrink:0;font-size:12px;margin-top:2px;}
+
+/* INSIGHT CARDS */
+.insight-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.ic{background:var(--white);padding:38px 34px;transition:background .2s;}.ic:hover{background:var(--bg2);}.ic-icon{font-size:24px;margin-bottom:16px;display:block;}.ic-src{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}.ic-h{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.25;}.ic-b{font-size:14px;color:var(--dim);line-height:1.78;}.ic-b strong{color:var(--ink2);font-weight:500;}
+
+/* TENSION GRID */
+.tension-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.tcard{background:var(--white);padding:36px 32px;transition:background .2s;border-top:3px solid transparent;}.tcard:hover{background:var(--bg2);}.tcard.t1{border-top-color:var(--ink);}.tcard.t2{border-top-color:var(--ink2);}.tcard.t3{border-top-color:var(--dim);}.tcard.t4{border-top-color:var(--bg3);}
+.tc-ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}.tc-num{font-family:var(--fh);font-size:52px;font-weight:700;line-height:1;margin-bottom:10px;color:var(--ink);}.tc-title{font-family:var(--fh);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.3;}.tc-body{font-size:13.5px;color:var(--dim);line-height:1.78;}.tc-body strong{color:var(--ink2);font-weight:500;}
+
+/* TWO COL COMPARE */
+.svn{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.svn-col{background:var(--white);padding:34px 30px;}.svn-head{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--ink);}.svn-head.light{border-bottom-color:var(--bdr);}.svn-item{padding:12px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--dim);line-height:1.6;}.svn-item:last-child{border-bottom:none;}.svn-item strong{color:var(--ink2);font-weight:500;}
+
+/* OPP LIST */
+.opp-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.opp{background:var(--white);padding:36px 30px;transition:background .2s;}.opp:hover{background:var(--bg2);}.opp-n{font-family:var(--fh);font-size:60px;font-weight:700;line-height:1;color:var(--bdr);margin-bottom:12px;transition:color .2s;}.opp:hover .opp-n{color:var(--bg3);}.opp-t{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.2;}.opp-b{font-size:14px;color:var(--dim);line-height:1.78;}.opp-b strong{color:var(--ink2);font-weight:500;}.opp-ev{margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr);font-size:12px;color:var(--dim);font-style:italic;line-height:1.6;}
+
+/* REC TABLE */
+.rec-table{border:1px solid var(--bdr);margin-bottom:52px;}.rec-head-row{padding:18px 24px;background:var(--bg3);border-bottom:1px solid var(--bdr);font-family:var(--fh);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.05em;}.rec-row{display:grid;grid-template-columns:220px 1fr 1fr;border-bottom:1px solid var(--bdr);transition:background .2s;}.rec-row:last-child{border-bottom:none;}.rec-row:hover{background:var(--bg2);}.rec-cell{padding:16px 22px;font-size:13.5px;color:var(--dim);border-right:1px solid var(--bdr);line-height:1.5;}.rec-cell:last-child{border-right:none;}.rec-cell:first-child{font-weight:600;color:var(--ink2);}.rec-cell.hi{color:var(--ink);font-weight:500;}.rec-cell.action{font-style:italic;}
+
+/* DEMO TABLE */
+.demo-t{border:1px solid var(--bdr);margin-bottom:52px;}.demo-head{display:grid;grid-template-columns:1.3fr repeat(4,1fr);background:var(--bg3);border-bottom:1px solid var(--bdr);}.demo-row{display:grid;grid-template-columns:1.3fr repeat(4,1fr);border-bottom:1px solid var(--bdr);transition:background .2s;}.demo-row:last-child{border-bottom:none;}.demo-row:hover{background:var(--bg2);}.demo-hcell,.demo-cell{padding:13px 18px;font-size:13px;border-right:1px solid var(--bdr);line-height:1.4;}.demo-hcell:last-child,.demo-cell:last-child{border-right:none;}.demo-hcell{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}.demo-cell{color:var(--dim);}.demo-cell:first-child{color:var(--ink2);font-weight:500;}.demo-cell.hi{color:var(--ink);font-weight:600;}.demo-cell.lo{font-style:italic;}
+
+/* METRIC FRAMEWORK */
+.mf{border:1px solid var(--bdr);margin-bottom:52px;}.mf-row{display:grid;grid-template-columns:190px 1fr;border-bottom:1px solid var(--bdr);transition:background .2s;}.mf-row:last-child{border-bottom:none;}.mf-row:hover{background:var(--bg2);}.mf-stage{padding:20px 22px;font-family:var(--fh);font-size:14px;font-weight:600;color:var(--ink);border-right:1px solid var(--bdr);display:flex;align-items:center;}.mf-detail{padding:20px 22px;font-size:13.5px;color:var(--dim);line-height:1.7;}
+
+/* SOURCES STRIP */
+.src-strip{display:flex;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:0;}.src-item{flex:1;background:var(--white);padding:18px 22px;display:flex;align-items:center;gap:12px;}.src-dot{width:7px;height:7px;flex-shrink:0;}.src-txt{font-size:12.5px;color:var(--dim);}.src-txt strong{color:var(--ink2);font-weight:500;}
+
+/* PAGE NAV */
+.pnav{display:flex;border-top:1px solid var(--bdr);}.pn{flex:1;padding:30px 36px;border-right:1px solid var(--bdr);text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:background .2s;}.pn:last-child{border-right:none;}.pn:hover{background:var(--bg2);}.pn-dir{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}.pn-title{font-family:var(--fh);font-size:18px;font-weight:600;color:var(--ink);line-height:1.2;}.pn-desc{font-size:12.5px;color:var(--dim);line-height:1.4;}
+
+/* FOOTER */
+.site-footer{padding:44px 52px;border-top:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}.f-logo-svg{height:17px;width:auto;display:block;}.f-copy{font-size:12px;color:var(--dim);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .62s ease,transform .62s ease;}.reveal.in{opacity:1;transform:none;}
+
+@media(max-width:900px){.method-cols,.mc-grid{grid-template-columns:1fr 1fr;}.tension-grid,.svn,.opp-list,.ov-grid{grid-template-columns:1fr;}.rec-row{grid-template-columns:1fr;}.rec-cell{border-right:none!important;border-bottom:1px solid var(--bdr);}.rec-cell:last-child{border-bottom:none;}.mf-row{grid-template-columns:1fr;}.mf-stage{border-right:none;border-bottom:1px solid var(--bdr);}
+.c3 .ct-head,.c3 .ct-row,.c2 .ct-head,.c2 .ct-row{grid-template-columns:1fr;}.ct-hcell,.ct-cell{border-right:none;border-bottom:1px solid var(--bdr);}.ct-row .ct-cell:last-child{border-bottom:none;}}
+@media(max-width:768px){.nav{padding:0 20px;}.nav-links a:not(.active){display:none;}.hero,.section{padding-left:24px;padding-right:24px;}.method-box{padding:28px 24px;}.method-cols,.mc-grid{grid-template-columns:1fr;}.hn,.sb{border-bottom:1px solid var(--bdr);border-right:none;}.hn:last-child,.sb:last-child{border-bottom:none;}.pnav{flex-direction:column;}.pn{border-right:none;border-bottom:1px solid var(--bdr);}.src-strip{flex-direction:column;}.site-footer{padding:36px 24px;}.demo-head,.demo-row{grid-template-columns:1fr 1fr;}}
+
+/* ── PROTO-PERSONAS ── */
+.persona{border:1px solid var(--bdr);margin-bottom:24px;background:var(--white);transition:background .2s;}
+.persona:hover{background:var(--bg2);}
+.persona-header{display:grid;grid-template-columns:80px 1fr 140px;gap:0;border-bottom:1px solid var(--bdr);}
+.persona-id{font-family:var(--fh);font-size:52px;font-weight:700;color:var(--bdr);padding:28px 24px;display:flex;align-items:flex-start;line-height:1;border-right:1px solid var(--bdr);transition:color .2s;}
+.persona:hover .persona-id{color:var(--bg3);}
+.persona-info{padding:28px 32px;border-right:1px solid var(--bdr);}
+.persona-name{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.2;}
+.persona-desc{font-size:14px;color:var(--dim);line-height:1.65;margin-bottom:16px;max-width:560px;}
+.persona-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink2);}
+.persona-stat-hero{padding:28px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+.psh-n{font-family:var(--fh);font-size:40px;font-weight:700;line-height:1;color:var(--ink);display:block;margin-bottom:4px;}
+.psh-l{font-size:11px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;}
+.persona-body{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--bdr);}
+.persona-col{padding:24px 28px;border-right:1px solid var(--bdr);}
+.persona-col:last-child{border-right:none;}
+.pcol-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bdr);}
+.persona-list{list-style:none;}
+.persona-list li{font-size:13px;color:var(--dim);padding:5px 0;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.persona-list li:last-child{border-bottom:none;}
+.persona-list li::before{content:'–';color:var(--bg3);flex-shrink:0;margin-top:1px;}
+.persona-insight{padding:20px 28px;background:var(--bg);display:flex;gap:20px;align-items:flex-start;}
+.pi-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);flex-shrink:0;margin-top:2px;white-space:nowrap;}
+.persona-insight p,.persona-insight{font-size:13.5px;color:var(--dim);line-height:1.7;}
+@media(max-width:900px){
+  .persona-header{grid-template-columns:60px 1fr;}
+  .persona-stat-hero{display:none;}
+  .persona-body{grid-template-columns:1fr;}
+  .persona-col{border-right:none;border-bottom:1px solid var(--bdr);}
+  .persona-col:last-child{border-bottom:none;}
+  .persona-insight{flex-direction:column;gap:8px;}
+}
+@media(max-width:600px){
+  .persona-header{grid-template-columns:1fr;}
+  .persona-id{display:none;}
+  .persona-info{border-right:none;}
+}
+
+/* ── CITAÇÕES ── */
+.citations-intro{font-size:15px;font-weight:300;color:var(--dim);max-width:600px;line-height:1.82;margin-bottom:52px;}
+.citations-themes{display:flex;flex-direction:column;gap:0;}
+.theme-block{border:1px solid var(--bdr);border-bottom:none;}
+.theme-block:last-child{border-bottom:1px solid var(--bdr);}
+.theme-header{padding:18px 28px;background:var(--bg3);display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bdr);}
+.theme-label{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--ink);letter-spacing:.02em;}
+.theme-count{font-size:11px;color:var(--dim);margin-left:auto;letter-spacing:.06em;}
+.theme-quotes{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:0;background:var(--bdr);}
+.theme-quotes.single{grid-template-columns:1fr;}
+.cq{background:var(--white);padding:32px 28px;display:flex;flex-direction:column;gap:16px;transition:background .2s;}
+.cq:hover{background:var(--bg2);}
+.cq-mark{font-size:48px;font-family:Georgia,serif;line-height:.6;color:var(--bdr);display:block;margin-bottom:4px;}
+.cq-text{font-family:var(--fh);font-size:16px;font-weight:400;font-style:italic;color:var(--ink);line-height:1.6;}
+.cq-text.small{font-size:14.5px;}
+.cq-meta{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--bdr);}
+.cq-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ink2);}
+.cq-source{font-size:11.5px;color:var(--dim);margin-left:auto;}
+</style>
+</head>
+<body>
+<nav class="nav"><a href="index.html" class="nav-logo"><svg style="height:20px;width:auto;display:block;" width="433" height="88" viewBox="0 0 433 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M151.226 0.0939512C222.159 -3.1883 227.121 80.5804 161.842 86.7977C137.434 89.2802 108.27 76.0965 105.241 49.159C101.914 19.5667 123.971 3.03745 151.226 0.0939512ZM159.335 70.3247C175.107 70.0279 191.296 59.9687 190.543 42.6267C189.717 23.5917 171.077 15.9692 154.704 16.4832C154.102 16.5027 153.5 16.5389 152.9 16.5922C143.252 17.3999 134.141 20.0752 127.645 27.7702C123.474 32.7085 121.438 39.1037 121.988 45.5447C122.57 52.2282 125.823 58.3947 131.009 62.65C138.723 69.0505 149.543 71.1204 159.335 70.3247Z" fill="black"/>
+<path d="M235.461 2.1032C254.395 1.5947 273.673 2.30395 292.63 2.0552C300.853 1.94745 310.61 5.10096 315.188 12.3367C320.35 20.501 319.615 35.9097 310.865 41.4327C325.495 46.4694 327.865 63.2062 320.587 75.4352C318.67 77.9497 316.24 80.0255 313.455 81.5232C306.322 85.364 299.338 85.031 291.508 85.0372L275.642 85.0437C263.17 85.0452 250.645 85.066 238.17 85.0227C237.176 85.0192 235.804 84.899 234.863 84.611C234.398 82.611 234.551 73.6624 234.55 71.0767L234.547 43.597L234.557 15.9277C234.57 11.837 234.53 7.5707 234.629 3.4787C234.648 2.69495 234.974 2.5092 235.461 2.1032ZM251.49 68.9119C262.628 68.8187 273.762 68.7905 284.9 68.8275C289.732 68.8312 294.632 69.0099 299.455 68.7622C301.84 68.6399 302.95 68.0895 304.888 66.7615C309.345 62.0947 308.263 52.3764 300.845 51.5082C296.273 50.9732 291.83 51.1285 287.235 51.1295L264.367 51.1292C260.832 51.1247 255.1 51.2434 251.742 50.9854C251.257 52.9832 251.528 66.0817 251.49 68.9119ZM251.503 35.3927C266.045 34.997 280.8 35.6062 295.348 35.1595C296.508 35.1237 298.353 34.039 299.195 33.253C303.53 28.0172 302.315 19.2162 294.638 18.4525C290.643 18.055 286.673 18.1897 282.663 18.1927L262.345 18.2135C259.128 18.2172 254.655 18.3545 251.52 18.1712L251.503 35.3927Z" fill="black"/>
+<path d="M354.478 2.08096L408.89 2.0417L422.635 2.04096C424.858 2.04121 429.763 1.90621 431.685 2.35671C432.03 3.46071 429.08 17.0617 428.478 17.8697C426.53 18.6472 376.78 18.1927 370.728 18.2417C370.843 23.931 370.825 29.622 370.678 35.3105C374.22 35.4767 379.728 35.2917 383.395 35.288L410.075 35.2712C414.778 35.2705 421.02 35.1102 425.6 35.5627C425.725 40.766 425.585 45.943 425.595 51.1492C422.05 50.9552 417.445 51.1215 413.805 51.1247L390.938 51.1345L370.753 51.0392C370.783 56.5512 370.993 63.3319 370.663 68.7244C374.785 69.1494 383.478 68.7857 387.875 68.8455C401.438 69.0297 415.253 68.5265 428.815 69.0405C429.355 73.4495 431.142 80.625 432.272 84.974C406.612 85.349 379.725 85.1802 354.025 85.0032C353.608 70.5142 353.99 54.0767 353.995 39.4505L353.998 16.1662C353.998 13.7367 353.713 3.33946 354.478 2.08096Z" fill="black"/>
+<path d="M73.0393 0.595947C75.4728 1.22345 85.624 9.37569 88.501 11.4059C87.2193 14.0639 83.456 18.4897 81.5048 20.9527L70.411 34.9324C68.1953 37.7244 65.5415 40.9097 63.5493 43.8117L62.869 44.3522C62.5445 44.4162 61.7588 44.5375 61.1428 43.9947C58.2805 41.4337 51.0258 37.3487 49.086 34.5009C48.453 33.5714 60.2793 17.7994 61.3515 16.4039C65.3308 11.2254 68.9333 5.4402 73.0393 0.595947Z" fill="black"/>
+<path d="M0 2.23794C2.57463 1.92719 18.6967 1.67519 20.6811 2.48569C21.7572 4.28444 21.25 26.8379 21.201 30.6742C38.3545 43.4162 56.055 55.7387 73.2538 68.4099C76.1675 70.5567 92.6395 82.0504 94.0178 83.7959L93.9805 84.5494C92.7077 85.5182 70.5302 84.8752 67.1357 84.9919C64.3227 85.0887 50.2538 74.0109 47.027 71.5572C38.6063 65.1534 29.2297 58.9517 21.0696 52.3042C21.6014 54.9439 21.5264 82.3907 20.7894 84.5032C19.6545 85.3947 2.56698 85.0599 0 84.9072V82.2814C0.997795 80.7662 2.16669 74.4437 2.5494 72.4847C6.2271 52.8017 6.11018 32.5974 2.20491 12.9587C1.77451 10.8474 1.05229 6.21994 0 4.65319V2.23794Z" fill="black"/>
+</svg></a><div class="nav-links"><a href="index.html">Início</a><a href="pesquisa-primaria.html" class="active">Pesquisa Primária</a><a href="pesquisa-secundaria.html">Pesquisa Secundária</a><a href="insights-combinados.html">Insights</a></div></nav>
+<div style="padding-top:60px">
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="h-ch reveal">01 / 03 · Pesquisa Primária</div>
+  <h1 class="hero-h1 reveal">O que os<br><em>consumidores</em><br>dizem</h1>
+  <p class="hero-lead reveal">Questionário com 128 consumidores brasileiros sobre hábitos de compra, uso de apps e comportamento digital — com recortes por faixa etária, gênero e renda.</p>
+  <div class="hero-nums reveal">
+    <div class="hn"><div class="hn-v">128</div><div class="hn-l">Respondentes válidos</div></div>
+    <div class="hn"><div class="hn-v">100%</div><div class="hn-l">Já compraram online</div></div>
+    <div class="hn"><div class="hn-v">76%</div><div class="hn-l">Baixaram app por promoção</div></div>
+    <div class="hn"><div class="hn-v">50/50</div><div class="hn-l">Aceitam notificações push</div></div>
+  </div>
+</div>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Metodologia</div>
+  <h2 class="s-h2 reveal">Como a pesquisa foi conduzida</h2>
+  <p class="s-lead reveal">Antes de interpretar os dados, entenda os parâmetros da coleta — especialmente o perfil da amostra, que é enviesado e deve ser levado em conta.</p>
+  <div class="method-box reveal">
+    <div class="method-top">Parâmetros da pesquisa primária</div>
+    <div class="method-cols">
+      <div><div class="mc-label">Tipo de pesquisa</div><div class="mc-val">Questionário quantitativo</div><div class="mc-desc">Formulário digital auto-preenchido com múltipla escolha, seleção múltipla e campos abertos. Aplicado via link digital.</div></div>
+      <div><div class="mc-label">Amostra</div><div class="mc-val">131 respostas · 128 válidas</div><div class="mc-desc">3 entradas de teste foram descartadas ("Vic teste" e duas entradas "Teste Teste"). Funcionários KOBE foram mantidos na amostra por serem consumidores reais.</div></div>
+      <div><div class="mc-label">Período e escopo</div><div class="mc-val">Janeiro de 2026</div><div class="mc-desc">Consumidores brasileiros que realizam compras online. Cobre comportamento em apps, sites, marketplaces e lojas físicas.</div></div>
+    </div>
+    <div class="method-note"><strong>Atenção sobre o perfil da amostra:</strong> 62% têm entre 25–34 anos, 70% moram em capitais, 76% têm ensino superior ou pós-graduação e 45% estão no RS. É uma amostra de conveniência com perfil específico — não deve ser generalizada para toda a população brasileira.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="eyebrow reveal">Principais insights</div>
+  <h2 class="s-h2 reveal">O que mais se destaca</h2>
+  <p class="s-lead reveal">Os números e padrões que devem guiar decisões de produto — antes do debrief detalhado.</p>
+  <div class="hl-band reveal">
+    <div class="hl"><div class="hl-n">76%</div><div class="hl-l">baixaram o último app motivados por promoção — gatilho dominante.</div></div>
+    <div class="hl"><div class="hl-n">76%</div><div class="hl-l">citam excesso de notificações como motivo de parar de usar o app.</div></div>
+    <div class="hl"><div class="hl-n">71%</div><div class="hl-l">usam rastreio do pedido como a funcionalidade mais acessada.</div></div>
+    <div class="hl"><div class="hl-n">80%</div><div class="hl-l">preferem apps quando há promoção exclusiva ou compra já decidida.</div></div>
+    <div class="hl"><div class="hl-n">70%</div><div class="hl-l">preferem sites ou marketplaces para comparar preços antes de comprar.</div></div>
+    <div class="hl"><div class="hl-n">89%</div><div class="hl-l">compraram via marketplace nos últimos 3 meses.</div></div>
+  </div>
+  <div class="card-grid reveal">
+    <div class="card"><div class="card-bg-n">01</div><span class="tag">Adoção</span><span class="card-big">77%</span><h3 class="card-h">Promoção e facilidade trazem o usuário de volta</h3><p class="card-b">77% voltam ao app por promoções, 58% por facilidade, 53% por benefícios como cashback. <strong>O ciclo promo → uso → promo é dominante</strong> — e precisa ser quebrado por experiência contínua para transformar usuários ocasionais em habituais.</p></div>
+    <div class="card"><div class="card-bg-n">02</div><span class="tag">Abandono</span><span class="card-big">46%</span><h3 class="card-h">Quase metade desinstala apps às vezes</h3><p class="card-b">Apenas 3% nunca desinstalaram. <strong>46% desinstalam às vezes e 24% frequentemente.</strong> A janela crítica é o D1 — o app precisa demonstrar valor imediato para sobreviver além da instalação motivada por promoção.</p></div>
+    <div class="card"><div class="card-bg-n">03</div><span class="tag">Notificações</span><span class="card-big">50%</span><h3 class="card-h">Metade bloqueia push — o excesso é o vilão</h3><p class="card-b">50% não permitem notificações — sobe para <strong>68% nos usuários de 18–24 anos.</strong> O problema não é o canal: status do pedido é aceito por 72%. O excesso de conteúdo promocional é o que afasta.</p></div>
+    <div class="card"><div class="card-bg-n">04</div><span class="tag">Canais</span><span class="card-big">89%</span><h3 class="card-h">Marketplaces dominam, apps têm papel específico</h3><p class="card-b">89% usaram marketplace nos últimos 3 meses vs. 51% de apps de lojas. <strong>Eles coexistem com papéis distintos:</strong> marketplace para descoberta e pesquisa, app para execução de compras decididas.</p></div>
+    <div class="card"><div class="card-bg-n">05</div><span class="tag">Fidelidade</span><span class="card-big">53%</span><h3 class="card-h">Benefícios recorrentes são o 2° driver de retorno</h3><p class="card-b">Cashback, pontos e descontos exclusivos são citados por 53% como motivo de retorno. <strong>Programas de fidelidade bem executados podem converter usuários ocasionais em heavy users.</strong></p></div>
+    <div class="card"><div class="card-bg-n">06</div><span class="tag">Onboarding</span><span class="card-big">34%</span><h3 class="card-h">Entender como funciona é o mais importante</h3><p class="card-b">34% dizem que o mais importante ao abrir o app pela 1ª vez é <strong>entender rapidamente como ele funciona.</strong> Apenas 14% priorizam ver benefícios. Clareza no onboarding reduz o churn inicial.</p></div>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Debrief · Perfil demográfico</div>
+  <h2 class="s-h2 reveal">Quem respondeu</h2>
+  <p class="s-lead reveal">Amostra concentrada em jovens adultos urbanos de alta escolaridade. Esse perfil deve ser considerado ao interpretar os resultados.</p>
+  <div class="charts reveal">
+    <div class="chart"><div class="ch-t">Faixa etária</div><div class="ch-n">% de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">25 – 34 anos</span><span class="br-v">62%</span></div><div class="br-track"><div class="br-fill" style="width:62%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">18 – 24 anos</span><span class="br-v">18%</span></div><div class="br-track"><div class="br-fill" style="width:18%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">35 – 44 anos</span><span class="br-v">12%</span></div><div class="br-track"><div class="br-fill" style="width:12%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">55 – 64 anos</span><span class="br-v">4%</span></div><div class="br-track"><div class="br-fill" style="width:4%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">45–54 / 65+</span><span class="br-v">4%</span></div><div class="br-track"><div class="br-fill" style="width:4%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Renda mensal familiar</div><div class="ch-n">% de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">4–8 salários mínimos</span><span class="br-v">36%</span></div><div class="br-track"><div class="br-fill" style="width:36%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">2–4 salários mínimos</span><span class="br-v">23%</span></div><div class="br-track"><div class="br-fill mid" style="width:23%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">8+ salários mínimos</span><span class="br-v">23%</span></div><div class="br-track"><div class="br-fill mid" style="width:23%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Prefiro não informar</span><span class="br-v">13%</span></div><div class="br-track"><div class="br-fill light" style="width:13%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Até 2 salários mínimos</span><span class="br-v">5%</span></div><div class="br-track"><div class="br-fill light" style="width:5%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Escolaridade</div><div class="ch-n">% de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Superior completo</span><span class="br-v">43%</span></div><div class="br-track"><div class="br-fill" style="width:43%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Pós-graduação</span><span class="br-v">33%</span></div><div class="br-track"><div class="br-fill" style="width:33%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Superior incompleto</span><span class="br-v">16%</span></div><div class="br-track"><div class="br-fill mid" style="width:16%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Ensino médio completo</span><span class="br-v">6%</span></div><div class="br-track"><div class="br-fill light" style="width:6%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Situação profissional</div><div class="ch-n">% de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">CLT</span><span class="br-v">52%</span></div><div class="br-track"><div class="br-fill" style="width:52%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Autônomo</span><span class="br-v">25%</span></div><div class="br-track"><div class="br-fill" style="width:25%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Empreendedor</span><span class="br-v">10%</span></div><div class="br-track"><div class="br-fill mid" style="width:10%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Estudante</span><span class="br-v">5%</span></div><div class="br-track"><div class="br-fill light" style="width:5%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="eyebrow reveal">Debrief · Hábitos de compra</div>
+  <h2 class="s-h2 reveal">Como compram e por onde</h2>
+  <p class="s-lead reveal">Consumidor digital maduro, multi-canal, com preferências claras sobre quando cada canal serve melhor.</p>
+  <div class="sband reveal">
+    <div class="sb"><div class="sb-n">100%</div><div class="sb-l">já compraram algo online</div></div>
+    <div class="sb"><div class="sb-n">83%</div><div class="sb-l">usam smartphone para comprar</div></div>
+    <div class="sb"><div class="sb-n">72%</div><div class="sb-l">compram online 2x+ por mês</div></div>
+    <div class="sb"><div class="sb-n">89%</div><div class="sb-l">usaram marketplace em 3 meses</div></div>
+  </div>
+  <div class="charts reveal">
+    <div class="chart"><div class="ch-t">Frequência de compra online (geral)</div><div class="ch-n">Todos os canais — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">2–3x por mês</span><span class="br-v">41%</span></div><div class="br-track"><div class="br-fill" style="width:41%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">1x por mês</span><span class="br-v">29%</span></div><div class="br-track"><div class="br-fill" style="width:29%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">1x por semana</span><span class="br-v">23%</span></div><div class="br-track"><div class="br-fill mid" style="width:23%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Menos de 1x por mês</span><span class="br-v">8%</span></div><div class="br-track"><div class="br-fill light" style="width:8%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Frequência de compra via aplicativo</div><div class="ch-n">Especificamente por app — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Mensalmente</span><span class="br-v">50%</span></div><div class="br-track"><div class="br-fill" style="width:50%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Semanalmente</span><span class="br-v">30%</span></div><div class="br-track"><div class="br-fill" style="width:30%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Raramente</span><span class="br-v">13%</span></div><div class="br-track"><div class="br-fill mid" style="width:13%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Diariamente</span><span class="br-v">6%</span></div><div class="br-track"><div class="br-fill mid" style="width:6%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Produtos mais comprados online</div><div class="ch-n">Múltipla escolha — % que compra a categoria</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Moda (roupas, calçados, acessórios)</span><span class="br-v">74%</span></div><div class="br-track"><div class="br-fill" style="width:74%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Beleza e saúde</span><span class="br-v">61%</span></div><div class="br-track"><div class="br-fill" style="width:61%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Eletrônicos</span><span class="br-v">57%</span></div><div class="br-track"><div class="br-fill mid" style="width:57%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Livros e entretenimento</span><span class="br-v">53%</span></div><div class="br-track"><div class="br-fill mid" style="width:53%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Casa e eletro</span><span class="br-v">48%</span></div><div class="br-track"><div class="br-fill mid" style="width:48%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Supermercado</span><span class="br-v">32%</span></div><div class="br-track"><div class="br-fill light" style="width:32%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Canais usados nos últimos 3 meses</div><div class="ch-n">% que utilizou cada canal</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Marketplaces (M. Livre, Amazon, Shopee…)</span><span class="br-v">89%</span></div><div class="br-track"><div class="br-fill" style="width:89%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Sites de lojas</span><span class="br-v">58%</span></div><div class="br-track"><div class="br-fill" style="width:58%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Aplicativos de lojas específicas</span><span class="br-v">51%</span></div><div class="br-track"><div class="br-fill mid" style="width:51%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Loja física</span><span class="br-v">45%</span></div><div class="br-track"><div class="br-fill mid" style="width:45%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Redes sociais (Instagram, WhatsApp)</span><span class="br-v">9%</span></div><div class="br-track"><div class="br-fill light" style="width:9%"></div></div></div>
+    </div>
+  </div>
+  <div class="eyebrow reveal" style="margin-top:8px">App vs. Site</div>
+  <h3 class="s-h3 reveal">Quando cada canal vence</h3>
+  <div class="ctable c2 reveal">
+    <div class="ct-head"><div class="ct-hcell">Situação</div><div class="ct-hcell hl">Prefere o aplicativo</div><div class="ct-hcell">Prefere site ou marketplace</div></div>
+    <div class="ct-row"><div class="ct-cell">Trigger principal</div><div class="ct-cell ok">Promoção exclusiva no app (80%) · Compra já decidida (60%)</div><div class="ct-cell">Comparar preços (70%) · Pesquisar marcas (51%)</div></div>
+    <div class="ct-row"><div class="ct-cell">Fase da jornada</div><div class="ct-cell ok">Execução — sabe o que quer comprar</div><div class="ct-cell">Descoberta e pesquisa pré-compra</div></div>
+    <div class="ct-row"><div class="ct-cell">Feature mais usada</div><div class="ct-cell ok">Rastreio (71%), histórico (48%), pagamento salvo (36%)</div><div class="ct-cell">Comparação de preços, avaliações, variedade</div></div>
+    <div class="ct-row"><div class="ct-cell">Principal irritação</div><div class="ct-cell warn">Excesso de notificações · UX confusa</div><div class="ct-cell warn">Login repetitivo · Sem dados salvos</div></div>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Debrief · Adoção &amp; Abandono</div>
+  <h2 class="s-h2 reveal">Por que baixam — e por que saem</h2>
+  <p class="s-lead reveal">Promoções atraem, mas não retêm. Notificações engajam quando contextuais, mas afastam quando excessivas. Essa tensão é o desafio central da retenção.</p>
+  <div class="charts reveal">
+    <div class="chart"><div class="ch-t">O que motivou o último download</div><div class="ch-n">Múltipla escolha — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Promoção</span><span class="br-v">76%</span></div><div class="br-track"><div class="br-fill" style="width:76%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Frete grátis</span><span class="br-v">35%</span></div><div class="br-track"><div class="br-fill" style="width:35%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Urgência de compra</span><span class="br-v">13%</span></div><div class="br-track"><div class="br-fill mid" style="width:13%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Compra recorrente</span><span class="br-v">12%</span></div><div class="br-track"><div class="br-fill mid" style="width:12%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">O que o usuário espera encontrar no app</div><div class="ch-n">Múltipla escolha — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Preço melhor</span><span class="br-v">73%</span></div><div class="br-track"><div class="br-fill" style="width:73%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Benefícios (cashback, descontos, pontos)</span><span class="br-v">67%</span></div><div class="br-track"><div class="br-fill" style="width:67%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Compra rápida</span><span class="br-v">53%</span></div><div class="br-track"><div class="br-fill mid" style="width:53%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Melhor experiência</span><span class="br-v">45%</span></div><div class="br-track"><div class="br-fill mid" style="width:45%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">O que faz o usuário voltar ao app</div><div class="ch-n">Múltipla escolha — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Promoção</span><span class="br-v">77%</span></div><div class="br-track"><div class="br-fill" style="width:77%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Facilidade de uso</span><span class="br-v">58%</span></div><div class="br-track"><div class="br-fill" style="width:58%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Benefícios (cashback, pontos)</span><span class="br-v">53%</span></div><div class="br-track"><div class="br-fill mid" style="width:53%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Recompra rápida</span><span class="br-v">34%</span></div><div class="br-track"><div class="br-fill mid" style="width:34%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Hábito</span><span class="br-v">22%</span></div><div class="br-track"><div class="br-fill light" style="width:22%"></div></div></div>
+    </div>
+    <div class="chart"><div class="ch-t">Motivos para parar de usar o app</div><div class="ch-n">Múltipla escolha — % de respondentes</div>
+      <div class="br"><div class="br-meta"><span class="br-l">Muitas notificações</span><span class="br-v">76%</span></div><div class="br-track"><div class="br-fill" style="width:76%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Experiência confusa</span><span class="br-v">59%</span></div><div class="br-track"><div class="br-fill" style="width:59%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Uso pontual (só para a promoção)</span><span class="br-v">40%</span></div><div class="br-track"><div class="br-fill mid" style="width:40%"></div></div></div>
+      <div class="br"><div class="br-meta"><span class="br-l">Falta de benefícios contínuos</span><span class="br-v">31%</span></div><div class="br-track"><div class="br-fill mid" style="width:31%"></div></div></div>
+    </div>
+  </div>
+  <div class="eyebrow reveal" style="margin-top:8px">Notificações push</div>
+  <h3 class="s-h3 reveal">O canal mais ambíguo</h3>
+  <div class="sband reveal">
+    <div class="sb"><div class="sb-n">50%</div><div class="sb-l">bloqueiam notificações de apps de compra</div></div>
+    <div class="sb"><div class="sb-n">68%</div><div class="sb-l">de 18–24 anos bloqueiam — maior taxa entre as faixas</div></div>
+    <div class="sb"><div class="sb-n">72%</div><div class="sb-l">acham notificações de status do pedido úteis</div></div>
+    <div class="sb"><div class="sb-n">77%</div><div class="sb-l">se irritam com o excesso de notificações</div></div>
+  </div>
+  <div class="pullquote reveal">
+    <p class="pq-t">"Gosto que tenha conteúdo original e não que seja só mais um lugar pra comprar ou ser bombardeado por propaganda."</p>
+    <cite class="pq-c">Respondente da pesquisa primária</cite>
+  </div>
+</section>
+
+<section class="section">
+  <div class="eyebrow reveal">Debrief · Proto-personas</div>
+  <h2 class="s-h2 reveal">Perfis comportamentais</h2>
+  <p class="s-lead reveal">Com base nos padrões de resposta do questionário, identificamos 5 perfis comportamentais de consumidores digitais. Não são segmentos mutuamente exclusivos — um respondente pode pertencer a mais de um perfil. Os percentuais indicam quantos na amostra apresentam o comportamento definidor de cada perfil.</p>
+
+  <!-- PERSONA 1 -->
+  <div class="persona reveal">
+    <div class="persona-header">
+      <div class="persona-id">01</div>
+      <div class="persona-info">
+        <h3 class="persona-name">A Heavy User Digital</h3>
+        <p class="persona-desc">Compra online com alta frequência, usa marketplaces e apps de marca. Altamente fidelizável quando bem servida de benefícios e experiência.</p>
+        <div class="persona-chips">
+          <span class="chip">Mulher · 61%</span>
+          <span class="chip">25–34 anos · 68%</span>
+          <span class="chip">Renda 4–8 SM · 36%</span>
+          <span class="chip">iPhone · 72%</span>
+          <span class="chip">Capital · 70%</span>
+          <span class="chip">62% aceita push</span>
+        </div>
+      </div>
+      <div class="persona-stat-hero">
+        <span class="psh-n">37%</span>
+        <span class="psh-l">compra semanal ou diária via app</span>
+      </div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-col">
+        <div class="pcol-label">Comportamento</div>
+        <ul class="persona-list">
+          <li>Compra via app diariamente ou semanalmente</li>
+          <li>Usa tanto marketplaces quanto apps de marca (32% usa ambos)</li>
+          <li>62% aceita notificações push</li>
+          <li>Compra principalmente moda, beleza e eletrônicos</li>
+          <li>Usa rastreio (31%), histórico (22%) e pagamento salvo (17%) rotineiramente</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que a ativa</div>
+        <ul class="persona-list">
+          <li>Promoção exclusiva no app (51% do gatilho de download)</li>
+          <li>Frete grátis (29%)</li>
+          <li>Volta por: promoção (28%) + benefícios como cashback (20%) + facilidade (20%)</li>
+          <li>Aceita notificações de status do pedido e promoções relevantes</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que a frustra</div>
+        <ul class="persona-list">
+          <li>Excesso de notificações promocionais</li>
+          <li>Apps com experiência confusa ou lenta</li>
+          <li>Ausência de benefícios recorrentes após a promoção de download</li>
+          <li>Falta de personalização nas ofertas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="persona-insight">
+      <span class="pi-label">Implicação de produto</span>
+      É o perfil mais valioso para programas de fidelidade. Já tem hábito de comprar via app — o desafio é manter relevância além das promoções. Push transacional e cashback recorrente são os maiores alavancadores de retenção para este perfil.
+    </div>
+  </div>
+
+  <!-- PERSONA 2 -->
+  <div class="persona reveal">
+    <div class="persona-header">
+      <div class="persona-id">02</div>
+      <div class="persona-info">
+        <h3 class="persona-name">O Caçador de Marketplace</h3>
+        <p class="persona-desc">Compra frequentemente mas quase exclusivamente via Mercado Livre, Amazon e Shopee. Não tem vínculo com apps de marcas específicas — preço e entrega rápida são tudo.</p>
+        <div class="persona-chips">
+          <span class="chip">Homem · 63%</span>
+          <span class="chip">25–34 anos · 66%</span>
+          <span class="chip">Renda 4–8 SM · 40%</span>
+          <span class="chip">iPhone · 60%</span>
+          <span class="chip">Capital · 63%</span>
+          <span class="chip">55% aceita push</span>
+        </div>
+      </div>
+      <div class="persona-stat-hero">
+        <span class="psh-n">51%</span>
+        <span class="psh-l">usa exclusivamente marketplaces</span>
+      </div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-col">
+        <div class="pcol-label">Comportamento</div>
+        <ul class="persona-list">
+          <li>Compra mensalmente (48%) ou semanalmente (35%) via app</li>
+          <li>Apps principais: Mercado Livre, Amazon, Shopee</li>
+          <li>55% aceita notificações</li>
+          <li>Prefere site/marketplace para comparar preços (22%) e ler avaliações (12%)</li>
+          <li>Desinstala às vezes (52%) mas raramente (26%) quando encontra valor</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o ativa</div>
+        <ul class="persona-list">
+          <li>Promoção (53%) e frete grátis (24%) como gatilhos de download</li>
+          <li>Retorna por: preço (20%) + entrega rápida (20%) + frete (17%)</li>
+          <li>Confia mais em marketplaces consolidados do que em apps de marca</li>
+          <li>Busca comparação e variedade em um só lugar</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o frustra</div>
+        <ul class="persona-list">
+          <li>Ter que baixar apps de marcas individuais para cada loja</li>
+          <li>Falta de variedade ou comparação dentro de um único app de marca</li>
+          <li>Notificações irrelevantes de lojas com quem não tem histórico</li>
+          <li>Apps lentos ou com cadastros longos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="persona-insight">
+      <span class="pi-label">Implicação de produto</span>
+      Difícil de capturar com apps de marca própria. Para atraí-lo, o app precisa oferecer algo que o marketplace não oferece: preço exclusivo, benefício de fidelidade, ou experiência pós-venda superior (rastreio, recompra fácil). A proposta de valor precisa ser explícita já no onboarding.
+    </div>
+  </div>
+
+  <!-- PERSONA 3 -->
+  <div class="persona reveal">
+    <div class="persona-header">
+      <div class="persona-id">03</div>
+      <div class="persona-info">
+        <h3 class="persona-name">O Power Buyer</h3>
+        <p class="persona-desc">Alta renda, alta frequência, muito receptivo a benefícios e fidelidade. O perfil mais lucrativo e mais fácil de reter — quando bem trabalhado.</p>
+        <div class="persona-chips">
+          <span class="chip">Homem · 53% / Mulher · 47%</span>
+          <span class="chip">25–34 anos · 69%</span>
+          <span class="chip">Renda 8+ SM · 100%</span>
+          <span class="chip">iPhone · 75%</span>
+          <span class="chip">Capital · 62%</span>
+          <span class="chip">81% aceita push</span>
+        </div>
+      </div>
+      <div class="persona-stat-hero">
+        <span class="psh-n">12%</span>
+        <span class="psh-l">alta renda e alta frequência</span>
+      </div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-col">
+        <div class="pcol-label">Comportamento</div>
+        <ul class="persona-list">
+          <li>Compra diariamente ou semanalmente (44%)</li>
+          <li>81% aceita notificações — maior taxa de todos os perfis</li>
+          <li>Usa marketplaces principalmente (56%) mas também apps de marca (19%)</li>
+          <li>Compra eletrônicos (20%), moda (17%), casa e eletro (17%) e beleza (14%)</li>
+          <li>Usa rastreio (32%), histórico (24%) e pagamento salvo (17%) com alta frequência</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o ativa</div>
+        <ul class="persona-list">
+          <li>Volta principalmente por: promoção (29%) + benefícios/cashback (27%) + facilidade (20%)</li>
+          <li>O único perfil onde benefícios chegam perto de promoção como driver de retorno</li>
+          <li>Receptivo a programas de pontos, cashback e vantagens exclusivas</li>
+          <li>Aceita push para promoções relevantes e status de pedido</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o frustra</div>
+        <ul class="persona-list">
+          <li>Apps sem programa de fidelidade ou benefícios recorrentes</li>
+          <li>Experiência inferior ao que já usa (Mercado Livre, Amazon)</li>
+          <li>Falta de personalização — ofertas genéricas para quem compra com frequência</li>
+          <li>Push sem contexto ou relevância</li>
+        </ul>
+      </div>
+    </div>
+    <div class="persona-insight">
+      <span class="pi-label">Implicação de produto</span>
+      É o perfil onde o investimento em fidelidade tem o maior retorno. Ele já aceita push, já compra com frequência e valoriza benefícios quase tanto quanto preço. Programas de pontos, cashback progressivo e notificações personalizadas são os principais alavancadores para este perfil.
+    </div>
+  </div>
+
+  <!-- PERSONA 4 -->
+  <div class="persona reveal">
+    <div class="persona-header">
+      <div class="persona-id">04</div>
+      <div class="persona-info">
+        <h3 class="persona-name">A Usuária de Marca</h3>
+        <p class="persona-desc">Prefere apps de marcas específicas a marketplaces. Compra principalmente moda e beleza, valoriza facilidade e experiência — não preço. Leal às marcas que já conhece.</p>
+        <div class="persona-chips">
+          <span class="chip">Mulher · 67%</span>
+          <span class="chip">25–34 anos · 64%</span>
+          <span class="chip">Renda 4–8 SM · 36%</span>
+          <span class="chip">iPhone · 72%</span>
+          <span class="chip">Capital · 64%</span>
+          <span class="chip">56% bloqueia push</span>
+        </div>
+      </div>
+      <div class="persona-stat-hero">
+        <span class="psh-n">20%</span>
+        <span class="psh-l">usa exclusivamente apps de marca</span>
+      </div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-col">
+        <div class="pcol-label">Comportamento</div>
+        <ul class="persona-list">
+          <li>Compra principalmente mensalmente (56%) — mas 12% compra diariamente</li>
+          <li>56% bloqueia notificações — maior rejeição de push entre os perfis</li>
+          <li>Compra moda (31%) e beleza e saúde (27%) prioritariamente</li>
+          <li>Volta pelo app por: facilidade (26%) + promoção (26%) + benefícios (21%)</li>
+          <li>38% prioriza entender como o app funciona na 1ª abertura</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que a ativa</div>
+        <ul class="persona-list">
+          <li>Confiança prévia na marca — baixa o app de lojas que já conhece</li>
+          <li>Facilidade de uso e clareza na navegação</li>
+          <li>Promoções exclusivas para usuários do app</li>
+          <li>Experiência melhor do que o site da marca</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que a frustra</div>
+        <ul class="persona-list">
+          <li>Notificações excessivas — 44% aponta como motivo de parar de usar</li>
+          <li>Experiência confusa — 25% aponta como causa de abandono</li>
+          <li>App que não entrega melhor experiência do que o site</li>
+          <li>Onboarding que não deixa claro o que o app faz de diferente</li>
+        </ul>
+      </div>
+    </div>
+    <div class="persona-insight">
+      <span class="pi-label">Implicação de produto</span>
+      É o perfil ideal para apps de marcas de moda e beleza. Já está disposta a usar o app — o desafio é não afastá-la com push excessivo e UX confusa. Onboarding focado em clareza e facilidade, e push quase zero exceto para status de pedido, são determinantes para reter este perfil.
+    </div>
+  </div>
+
+  <!-- PERSONA 5 -->
+  <div class="persona reveal">
+    <div class="persona-header">
+      <div class="persona-id">05</div>
+      <div class="persona-info">
+        <h3 class="persona-name">O Caçador de Promoção</h3>
+        <p class="persona-desc">Baixa o app motivado exclusivamente por desconto ou frete grátis. Desinstala com frequência, não aceita push e dificilmente se torna um usuário habitual sem um motivo claro para ficar.</p>
+        <div class="persona-chips">
+          <span class="chip">Mulher · 61%</span>
+          <span class="chip">25–34 anos · 68%</span>
+          <span class="chip">Renda 4–8 SM · 48%</span>
+          <span class="chip">iPhone · 65%</span>
+          <span class="chip">Capital · 68%</span>
+          <span class="chip">61% bloqueia push</span>
+        </div>
+      </div>
+      <div class="persona-stat-hero">
+        <span class="psh-n">24%</span>
+        <span class="psh-l">desinstala apps frequentemente</span>
+      </div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-col">
+        <div class="pcol-label">Comportamento</div>
+        <ul class="persona-list">
+          <li>Compra mensalmente (45%) ou raramente (26%) via app</li>
+          <li>61% bloqueia notificações</li>
+          <li>Desinstala frequentemente — esse é o critério que define o perfil</li>
+          <li>Motivado por promoção (51%) e frete grátis (27%)</li>
+          <li>Usa o app pontualmente e abandona após a compra</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o ativa</div>
+        <ul class="persona-list">
+          <li>Desconto imediato ou frete grátis exclusivos do app</li>
+          <li>Urgência — promoção por tempo limitado</li>
+          <li>Prefere apps quando já sabe o que quer comprar e há vantagem clara</li>
+          <li>Pode ser convertido se o onboarding mostrar valor além da promo</li>
+        </ul>
+      </div>
+      <div class="persona-col">
+        <div class="pcol-label">O que o frustra</div>
+        <ul class="persona-list">
+          <li>Notificações após a compra pontual — 61% bloqueia tudo</li>
+          <li>Experiência confusa que não compensa o espaço ocupado no celular</li>
+          <li>Ausência de benefício contínuo percebido após a promoção inicial</li>
+          <li>Apps pesados ou com cadastro longo antes da primeira compra</li>
+        </ul>
+      </div>
+    </div>
+    <div class="persona-insight">
+      <span class="pi-label">Implicação de produto</span>
+      É o maior risco de churn no D1. O onboarding precisa responder imediatamente: "por que eu deveria manter este app depois da promoção?" Se essa pergunta não for respondida nos primeiros minutos, a desinstalação é certa. Benefícios de uso recorrente visíveis logo na primeira sessão são a única alavanca eficaz.
+    </div>
+  </div>
+
+</section>
+
+<section class="section">
+  <div class="eyebrow reveal">Debrief · Recortes demográficos</div>
+  <h2 class="s-h2 reveal">Como o perfil muda o comportamento</h2>
+  <p class="s-lead reveal">Cruzamento de dados comportamentais com perfil demográfico — tendências relevantes por faixa etária, gênero e renda.</p>
+  <div class="demo-t reveal">
+    <div class="demo-head"><div class="demo-hcell">Grupo</div><div class="demo-hcell">Compra semanal via app</div><div class="demo-hcell">Aceita notificações</div><div class="demo-hcell">Desinstala frequente</div><div class="demo-hcell">Device</div></div>
+    <div class="demo-row"><div class="demo-cell">18 – 24 anos</div><div class="demo-cell">14%</div><div class="demo-cell lo">32% — mais restritivos</div><div class="demo-cell">23%</div><div class="demo-cell">73% iPhone</div></div>
+    <div class="demo-row"><div class="demo-cell">25 – 34 anos</div><div class="demo-cell hi">31%</div><div class="demo-cell hi">55% — mais receptivos</div><div class="demo-cell">25%</div><div class="demo-cell">73% iPhone</div></div>
+    <div class="demo-row"><div class="demo-cell">35 – 44 anos</div><div class="demo-cell hi">40% — maior taxa</div><div class="demo-cell">40%</div><div class="demo-cell">20%</div><div class="demo-cell">87% Android</div></div>
+    <div class="demo-row"><div class="demo-cell">Mulheres</div><div class="demo-cell">31%</div><div class="demo-cell">50% aceitam</div><div class="demo-cell">30% desinstala frequentemente</div><div class="demo-cell hi">11% compram diariamente</div></div>
+    <div class="demo-row"><div class="demo-cell">Homens</div><div class="demo-cell">27%</div><div class="demo-cell">46% aceitam</div><div class="demo-cell">20% desinstala frequentemente</div><div class="demo-cell">2% compram diariamente</div></div>
+    <div class="demo-row"><div class="demo-cell">Renda 8+ SM</div><div class="demo-cell hi">44% — quase 3× a renda baixa</div><div class="demo-cell hi">62% aceitam</div><div class="demo-cell">10% desinstala frequentemente</div><div class="demo-cell hi">10% compram diariamente · 76% iPhone</div></div>
+    <div class="demo-row"><div class="demo-cell">Renda 2–4 SM</div><div class="demo-cell lo">17% — menor taxa</div><div class="demo-cell">53% aceitam</div><div class="demo-cell lo">23% desinstala frequentemente</div><div class="demo-cell">3% compram diariamente · 47% Android</div></div>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Debrief · Perguntas abertas</div>
+  <h2 class="s-h2 reveal">O que os respondentes disseram</h2>
+  <p class="citations-intro reveal">Seleção de respostas das perguntas abertas do questionário, organizadas por tema. Citações reais, sem edição — o que aparece aqui é exatamente o que foi escrito pelos respondentes.</p>
+
+  <div class="citations-themes reveal">
+
+    <!-- TEMA 1: Promoção vs. valor contínuo -->
+    <div class="theme-block">
+      <div class="theme-header">
+        <span class="theme-label">Promoção vs. valor contínuo</span>
+        <span class="theme-count">4 citações</span>
+      </div>
+      <div class="theme-quotes">
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Não usaria MAIS aplicativos. Usaria mais OS aplicativos que gosto. A relevância está na minha consideração e apreço pela marca. Gosto que tenha conteúdo original e não que seja só mais um lugar pra comprar ou ser bombardeado por propaganda.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Compra rápida para produtos que já tenho o hábito de comprar, com algum tipo de cashback ou promoção pela compra usando o app.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Me envolver mais com marcas em específico e querer criar o hábito de consumir mais delas. Hoje eu não tenho essa relação com as marcas.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Ter benefícios claros em função do uso do app.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMA 2: Notificações -->
+    <div class="theme-block">
+      <div class="theme-header">
+        <span class="theme-label">Notificações — a tensão entre útil e invasivo</span>
+        <span class="theme-count">4 citações</span>
+      </div>
+      <div class="theme-quotes">
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Fora as inúmeras mensagens o dia todo de propagandas, aí tu precisa desligar as notificações e não receber os status do pedido pra não receber notificações de propaganda. É muito frustrante.</p>
+          <div class="cq-meta"><span class="cq-tag">Comentário geral</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Cupons de descontos, sem diversas notificações de produtos irrelevantes para mim.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Não ficar me mandando notificação, a não ser que seja de que tem um novo cupom disponível.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Acho que o aplicativo deveria ser quase invisível, não ficar lembrando que ele está lá para lembrar de eu desinstalar ele.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMA 3: Experiência e facilidade -->
+    <div class="theme-block">
+      <div class="theme-header">
+        <span class="theme-label">Experiência e facilidade de uso</span>
+        <span class="theme-count">4 citações</span>
+      </div>
+      <div class="theme-quotes">
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Se for igual ao site web, eu uso o site. Promoções específicas do mobile. Acompanhamento do pedido extremamente facilitado, sem ter que clicar em 15 botões pra poder ver onde o pedido está.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Aplicativos com interface responsiva, que apresentem facilidade no aprendizado do uso, e que não gerem sensação de poluição visual — algo que gera uma sobrecarga de informações e me atrapalha na experiência de compras.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Notificações a todo momento é uma dor pra mim. UX é menos, eu sei me virar, mas meus pais (45–50 anos) não conseguem comprar em alguns sites/apps por acharem muito confuso.</p>
+          <div class="cq-meta"><span class="cq-tag">Comentário geral</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Se fossem mais intuitivos e houvesse vantagens e benefícios. Não ter notificações, ser mais pensado na experiência do que em visual.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMA 4: Confiança e pós-venda -->
+    <div class="theme-block">
+      <div class="theme-header">
+        <span class="theme-label">Confiança e pós-venda como diferenciais reais</span>
+        <span class="theme-count">3 citações</span>
+      </div>
+      <div class="theme-quotes">
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">O diferencial de um aplicativo é a confiança que você tem no vendedor/produto, depois vem a usabilidade e por último o preço. Um aplicativo que tem esses 3 itens em ordem me cativa muito como cliente.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Problemas podem até acontecer, mas a forma como o app se disponibiliza para resolver o problema fideliza bem mais do que uma compra realizada, porque isso passa confiança: se meu pedido der errado, eu sei que vou conseguir resolver.</p>
+          <div class="cq-meta"><span class="cq-tag">Comentário geral</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">A Sephora faz algo muito bem: sistema de pontuação que depois pode ser trocado por produtos ou descontos. Enviar um brinde em toda compra acima de X reais — e são sempre brindes legais, específicos pra quem compra via app.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMA 5: App de marca vs. marketplace -->
+    <div class="theme-block">
+      <div class="theme-header">
+        <span class="theme-label">App de marca vs. marketplace — a escolha do canal</span>
+        <span class="theme-count">3 citações</span>
+      </div>
+      <div class="theme-quotes">
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text small">Geralmente só uso o app de uma marca pontualmente para rastrear com mais facilidade ou porque estão com alguma promoção exclusiva. No mais, marketplaces têm meu coração. O Tik Tok Shop tem me chamado mais atenção: já estou navegando na rede social e aparece uma promoção de um item que quero e na hora compro.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Acredito que faça sentido baixar um app se as compras vão ser recorrentes. Na Amazon, pelo mix ultra amplo de opções, sempre vou fazer uma compra. Uma marca específica nichada, como uma marca de roupa, provavelmente vou comprar uma vez, pontualmente, e não vou precisar mais do app.</p>
+          <div class="cq-meta"><span class="cq-tag">Comentário geral</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+        <div class="cq">
+          <span class="cq-mark">"</span>
+          <p class="cq-text">Eu geralmente acabo comprando no Mercado Livre pois a logística de devolução se necessária é muito mais simples. O receio de ter que ficar dependendo de um suporte ruim é o que mais faz eu não usar o app da loja e sim ir até o marketplace.</p>
+          <div class="cq-meta"><span class="cq-tag">O que faria usar mais apps</span><span class="cq-source">Respondente da pesquisa</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="pnav">
+  <a href="index.html" class="pn"><span class="pn-dir">← Anterior</span><span class="pn-title">Visão Geral</span><span class="pn-desc">Início e sumário executivo</span></a>
+  <a href="pesquisa-secundaria.html" class="pn"><span class="pn-dir">Próximo →</span><span class="pn-title">Pesquisa Secundária</span><span class="pn-desc">Desk research + dados GA4 dos clientes KOBE</span></a>
+</div>
+</div>
+<footer class="site-footer"><span class="f-logo"><svg style="height:17px;width:auto;display:block;" width="433" height="88" viewBox="0 0 433 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M151.226 0.0939512C222.159 -3.1883 227.121 80.5804 161.842 86.7977C137.434 89.2802 108.27 76.0965 105.241 49.159C101.914 19.5667 123.971 3.03745 151.226 0.0939512ZM159.335 70.3247C175.107 70.0279 191.296 59.9687 190.543 42.6267C189.717 23.5917 171.077 15.9692 154.704 16.4832C154.102 16.5027 153.5 16.5389 152.9 16.5922C143.252 17.3999 134.141 20.0752 127.645 27.7702C123.474 32.7085 121.438 39.1037 121.988 45.5447C122.57 52.2282 125.823 58.3947 131.009 62.65C138.723 69.0505 149.543 71.1204 159.335 70.3247Z" fill="black"/>
+<path d="M235.461 2.1032C254.395 1.5947 273.673 2.30395 292.63 2.0552C300.853 1.94745 310.61 5.10096 315.188 12.3367C320.35 20.501 319.615 35.9097 310.865 41.4327C325.495 46.4694 327.865 63.2062 320.587 75.4352C318.67 77.9497 316.24 80.0255 313.455 81.5232C306.322 85.364 299.338 85.031 291.508 85.0372L275.642 85.0437C263.17 85.0452 250.645 85.066 238.17 85.0227C237.176 85.0192 235.804 84.899 234.863 84.611C234.398 82.611 234.551 73.6624 234.55 71.0767L234.547 43.597L234.557 15.9277C234.57 11.837 234.53 7.5707 234.629 3.4787C234.648 2.69495 234.974 2.5092 235.461 2.1032ZM251.49 68.9119C262.628 68.8187 273.762 68.7905 284.9 68.8275C289.732 68.8312 294.632 69.0099 299.455 68.7622C301.84 68.6399 302.95 68.0895 304.888 66.7615C309.345 62.0947 308.263 52.3764 300.845 51.5082C296.273 50.9732 291.83 51.1285 287.235 51.1295L264.367 51.1292C260.832 51.1247 255.1 51.2434 251.742 50.9854C251.257 52.9832 251.528 66.0817 251.49 68.9119ZM251.503 35.3927C266.045 34.997 280.8 35.6062 295.348 35.1595C296.508 35.1237 298.353 34.039 299.195 33.253C303.53 28.0172 302.315 19.2162 294.638 18.4525C290.643 18.055 286.673 18.1897 282.663 18.1927L262.345 18.2135C259.128 18.2172 254.655 18.3545 251.52 18.1712L251.503 35.3927Z" fill="black"/>
+<path d="M354.478 2.08096L408.89 2.0417L422.635 2.04096C424.858 2.04121 429.763 1.90621 431.685 2.35671C432.03 3.46071 429.08 17.0617 428.478 17.8697C426.53 18.6472 376.78 18.1927 370.728 18.2417C370.843 23.931 370.825 29.622 370.678 35.3105C374.22 35.4767 379.728 35.2917 383.395 35.288L410.075 35.2712C414.778 35.2705 421.02 35.1102 425.6 35.5627C425.725 40.766 425.585 45.943 425.595 51.1492C422.05 50.9552 417.445 51.1215 413.805 51.1247L390.938 51.1345L370.753 51.0392C370.783 56.5512 370.993 63.3319 370.663 68.7244C374.785 69.1494 383.478 68.7857 387.875 68.8455C401.438 69.0297 415.253 68.5265 428.815 69.0405C429.355 73.4495 431.142 80.625 432.272 84.974C406.612 85.349 379.725 85.1802 354.025 85.0032C353.608 70.5142 353.99 54.0767 353.995 39.4505L353.998 16.1662C353.998 13.7367 353.713 3.33946 354.478 2.08096Z" fill="black"/>
+<path d="M73.0393 0.595947C75.4728 1.22345 85.624 9.37569 88.501 11.4059C87.2193 14.0639 83.456 18.4897 81.5048 20.9527L70.411 34.9324C68.1953 37.7244 65.5415 40.9097 63.5493 43.8117L62.869 44.3522C62.5445 44.4162 61.7588 44.5375 61.1428 43.9947C58.2805 41.4337 51.0258 37.3487 49.086 34.5009C48.453 33.5714 60.2793 17.7994 61.3515 16.4039C65.3308 11.2254 68.9333 5.4402 73.0393 0.595947Z" fill="black"/>
+<path d="M0 2.23794C2.57463 1.92719 18.6967 1.67519 20.6811 2.48569C21.7572 4.28444 21.25 26.8379 21.201 30.6742C38.3545 43.4162 56.055 55.7387 73.2538 68.4099C76.1675 70.5567 92.6395 82.0504 94.0178 83.7959L93.9805 84.5494C92.7077 85.5182 70.5302 84.8752 67.1357 84.9919C64.3227 85.0887 50.2538 74.0109 47.027 71.5572C38.6063 65.1534 29.2297 58.9517 21.0696 52.3042C21.6014 54.9439 21.5264 82.3907 20.7894 84.5032C19.6545 85.3947 2.56698 85.0599 0 84.9072V82.2814C0.997795 80.7662 2.16669 74.4437 2.5494 72.4847C6.2271 52.8017 6.11018 32.5974 2.20491 12.9587C1.77451 10.8474 1.05229 6.21994 0 4.65319V2.23794Z" fill="black"/>
+</svg></span><span class="f-copy">Pesquisa SaaS · Fase 1 · Janeiro 2026 · Uso interno</span></footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('in'),i*60);obs.unobserve(el.target);}});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

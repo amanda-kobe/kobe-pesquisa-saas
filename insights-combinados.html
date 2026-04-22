@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Insights Combinados — KOBE SaaS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400;16..144,500;16..144,600;16..144,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+:root{
+  --bg:    #F0EEED;
+  --bg2:   #EFEFEF;
+  --bg3:   #D9D9D9;
+  --white: #FFFFFF;
+  --ink:   #000000;
+  --ink2:  #1A1A1A;
+  --mid:   #D6D2CC;
+  --bdr:   #D5D5D3;
+  --muted: #1A1A1A;
+  --dim:   #6B6866;
+  --fh:'Montagu Slab',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink2);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:60px;background:rgba(240,238,237,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);}
+.nav-logo-svg{height:20px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:2px;}.nav-links a{font-size:12.5px;font-weight:500;color:var(--dim);text-decoration:none;padding:6px 13px;border-radius:3px;transition:color .15s,background .15s;}.nav-links a:hover{color:var(--ink);background:var(--bg2);}.nav-links a.active{color:var(--ink);background:var(--bg3);font-weight:600;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 52px 80px;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:80px 80px;opacity:.5;}
+.hero>*{position:relative;z-index:1;}
+.h-ch{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:28px;}
+.h-ch::before{content:'';display:block;width:28px;height:1px;background:var(--bdr);}
+.hero-h1{font-family:var(--fh);font-size:clamp(52px,8vw,120px);font-weight:700;line-height:.96;letter-spacing:-.03em;color:var(--ink);margin-bottom:28px;}
+.hero-h1 em{font-style:italic;color:var(--ink);}
+.hero-lead{font-size:17px;font-weight:300;color:var(--dim);max-width:520px;line-height:1.82;margin-bottom:60px;}
+.hero-nums{display:flex;flex-wrap:wrap;gap:1px;background:var(--bdr);border:1px solid var(--bdr);}.hn{flex:1;min-width:160px;background:var(--bg);padding:28px 24px;transition:background .2s;}.hn:hover{background:var(--bg2);}.hn-v{font-family:var(--fh);font-size:44px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:6px;}.hn-l{font-size:12px;color:var(--dim);line-height:1.4;}
+
+/* SECTIONS */
+.section{padding:88px 52px;}.section+.section{border-top:1px solid var(--bdr);}.section.tinted{background:var(--bg2);}.section.darker{background:var(--bg3);}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--bdr);}
+.s-h2{font-family:var(--fh);font-size:clamp(28px,3.8vw,54px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:14px;}.s-h3{font-family:var(--fh);font-size:clamp(22px,2.5vw,36px);font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.02em;margin-bottom:14px;}.s-lead{font-size:15.5px;font-weight:300;color:var(--dim);max-width:580px;line-height:1.82;margin-bottom:52px;}
+
+/* METHOD BOX */
+.method-box{background:var(--white);border:1px solid var(--bdr);padding:44px 48px;margin-bottom:64px;}.method-top{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:24px;display:flex;align-items:center;gap:10px;}.method-top::before{content:'';display:block;width:18px;height:1px;background:var(--bdr);}.method-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;}.mc-label{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}.mc-val{font-family:var(--fh);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.25;}.mc-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+.method-note{margin-top:24px;padding:16px 18px;border-top:1px solid var(--bdr);font-size:13px;color:var(--dim);line-height:1.7;border-left:2px solid var(--ink2);padding-left:18px;}.method-note strong{color:var(--ink);}
+.method-clients{margin-top:24px;padding-top:20px;border-top:1px solid var(--bdr);}.mc-head{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}.mc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}.mc-seg{background:var(--bg);border:1px solid var(--bdr);padding:14px 16px;}.mc-seg-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--ink);}.mc-seg-names{font-size:12.5px;color:var(--dim);line-height:1.65;}
+
+/* HIGHLIGHT BAND */
+.hl-band{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.hl{background:var(--white);padding:30px 26px;transition:background .2s;}.hl:hover{background:var(--bg2);}.hl-n{font-family:var(--fh);font-size:54px;font-weight:700;line-height:1;margin-bottom:8px;color:var(--ink);}.hl-l{font-size:13px;color:var(--dim);line-height:1.5;}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.card{background:var(--white);padding:34px 30px;position:relative;overflow:hidden;transition:background .2s;}.card:hover{background:var(--bg2);}.card-bg-n{position:absolute;top:14px;right:20px;font-family:var(--fh);font-size:72px;font-weight:700;line-height:1;color:var(--bdr);pointer-events:none;transition:color .2s;}.card:hover .card-bg-n{color:var(--bg3);}
+.tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-bottom:12px;background:var(--bg2);color:var(--ink2);border:1px solid var(--bdr);}
+.card-big{font-family:var(--fh);font-size:44px;font-weight:700;line-height:1;display:block;margin-bottom:6px;color:var(--ink);}.card-h{font-family:var(--fh);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3;}.card-b{font-size:13.5px;color:var(--dim);line-height:1.78;}.card-b strong{color:var(--ink2);font-weight:500;}
+
+/* CHARTS */
+.charts{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:20px;margin-bottom:52px;}.chart{background:var(--white);border:1px solid var(--bdr);padding:28px 26px;}.ch-t{font-family:var(--fh);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;}.ch-n{font-size:12px;color:var(--dim);margin-bottom:22px;font-style:italic;}.br{margin-bottom:12px;}.br-meta{display:flex;justify-content:space-between;margin-bottom:5px;}.br-l{font-size:13px;color:var(--dim);}.br-v{font-size:13px;font-weight:600;color:var(--ink);}.br-track{height:4px;background:var(--bg3);border-radius:0;overflow:hidden;}.br-fill{height:100%;background:var(--ink);animation:fIn .9s cubic-bezier(.22,.61,.36,1) both;}.br-fill.mid{background:var(--ink2);}.br-fill.light{background:var(--bg3);}@keyframes fIn{from{width:0!important;}}
+
+/* STAT BAND */
+.sband{display:flex;flex-wrap:wrap;border:1px solid var(--bdr);background:var(--bdr);gap:1px;margin-bottom:52px;}.sb{flex:1;min-width:170px;background:var(--white);padding:30px 26px;transition:background .2s;}.sb:hover{background:var(--bg2);}.sb-n{font-family:var(--fh);font-size:52px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:8px;}.sb-l{font-size:12.5px;color:var(--dim);line-height:1.5;}
+
+/* TABLE */
+.ctable{border:1px solid var(--bdr);margin-bottom:52px;}.ct-head{display:grid;background:var(--bg3);border-bottom:1px solid var(--bdr);}.ct-row{display:grid;border-bottom:1px solid var(--bdr);transition:background .2s;}.ct-row:last-child{border-bottom:none;}.ct-row:hover{background:var(--bg2);}.ct-hcell{padding:14px 20px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--bdr);}.ct-hcell:last-child{border-right:none;}.ct-hcell.hl{color:var(--ink);}.ct-cell{padding:17px 20px;font-size:13.5px;color:var(--dim);line-height:1.5;border-right:1px solid var(--bdr);}.ct-cell:last-child{border-right:none;}.ct-cell:first-child{color:var(--ink2);font-weight:500;}.ct-cell.ok{color:var(--ink);font-weight:500;}.ct-cell.warn{color:var(--dim);font-style:italic;}.ct-cell.alert{color:var(--ink);font-weight:600;}.c2 .ct-head,.c2 .ct-row{grid-template-columns:1.2fr 1.6fr 1.6fr;}.c3 .ct-head,.c3 .ct-row{grid-template-columns:1.4fr 1fr 1fr 1fr;}
+
+/* PULL QUOTE */
+.pullquote{border-left:2px solid var(--ink);padding:20px 32px;background:var(--white);margin:40px 0;}.pq-t{font-family:var(--fh);font-size:20px;font-weight:400;font-style:italic;color:var(--ink);line-height:1.5;}.pq-c{display:block;margin-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
+
+/* NAV CARDS */
+.nav-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:0;}.nc{background:var(--white);padding:38px 34px;text-decoration:none;display:flex;flex-direction:column;gap:14px;transition:background .2s;}.nc:hover{background:var(--bg2);}.nc-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}.nc-title{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.02em;}.nc-desc{font-size:14px;color:var(--dim);line-height:1.7;flex:1;}.nc-cta{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:8px;transition:gap .2s;}.nc:hover .nc-cta{gap:12px;}
+
+/* OVERVIEW GRID */
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);}.ovc{background:var(--white);padding:32px 28px;}.ovc-t{font-family:var(--fh);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;}.ovc-list{list-style:none;}.ovc-list li{font-size:13.5px;color:var(--dim);padding:6px 0;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;gap:10px;line-height:1.55;}.ovc-list li:last-child{border-bottom:none;}.ovc-list li::before{content:'→';color:var(--bg3);flex-shrink:0;font-size:12px;margin-top:2px;}
+
+/* INSIGHT CARDS */
+.insight-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.ic{background:var(--white);padding:38px 34px;transition:background .2s;}.ic:hover{background:var(--bg2);}.ic-icon{font-size:24px;margin-bottom:16px;display:block;}.ic-src{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}.ic-h{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.25;}.ic-b{font-size:14px;color:var(--dim);line-height:1.78;}.ic-b strong{color:var(--ink2);font-weight:500;}
+
+/* TENSION GRID */
+.tension-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.tcard{background:var(--white);padding:36px 32px;transition:background .2s;border-top:3px solid transparent;}.tcard:hover{background:var(--bg2);}.tcard.t1{border-top-color:var(--ink);}.tcard.t2{border-top-color:var(--ink2);}.tcard.t3{border-top-color:var(--dim);}.tcard.t4{border-top-color:var(--bg3);}
+.tc-ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}.tc-num{font-family:var(--fh);font-size:52px;font-weight:700;line-height:1;margin-bottom:10px;color:var(--ink);}.tc-title{font-family:var(--fh);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.3;}.tc-body{font-size:13.5px;color:var(--dim);line-height:1.78;}.tc-body strong{color:var(--ink2);font-weight:500;}
+
+/* TWO COL COMPARE */
+.svn{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.svn-col{background:var(--white);padding:34px 30px;}.svn-head{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--ink);}.svn-head.light{border-bottom-color:var(--bdr);}.svn-item{padding:12px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--dim);line-height:1.6;}.svn-item:last-child{border-bottom:none;}.svn-item strong{color:var(--ink2);font-weight:500;}
+
+/* OPP LIST */
+.opp-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:52px;}.opp{background:var(--white);padding:36px 30px;transition:background .2s;}.opp:hover{background:var(--bg2);}.opp-n{font-family:var(--fh);font-size:60px;font-weight:700;line-height:1;color:var(--bdr);margin-bottom:12px;transition:color .2s;}.opp:hover .opp-n{color:var(--bg3);}.opp-t{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.2;}.opp-b{font-size:14px;color:var(--dim);line-height:1.78;}.opp-b strong{color:var(--ink2);font-weight:500;}.opp-ev{margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr);font-size:12px;color:var(--dim);font-style:italic;line-height:1.6;}
+
+/* REC TABLE */
+.rec-table{border:1px solid var(--bdr);margin-bottom:52px;}.rec-head-row{padding:18px 24px;background:var(--bg3);border-bottom:1px solid var(--bdr);font-family:var(--fh);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.05em;}.rec-row{display:grid;grid-template-columns:220px 1fr 1fr;border-bottom:1px solid var(--bdr);transition:background .2s;}.rec-row:last-child{border-bottom:none;}.rec-row:hover{background:var(--bg2);}.rec-cell{padding:16px 22px;font-size:13.5px;color:var(--dim);border-right:1px solid var(--bdr);line-height:1.5;}.rec-cell:last-child{border-right:none;}.rec-cell:first-child{font-weight:600;color:var(--ink2);}.rec-cell.hi{color:var(--ink);font-weight:500;}.rec-cell.action{font-style:italic;}
+
+/* DEMO TABLE */
+.demo-t{border:1px solid var(--bdr);margin-bottom:52px;}.demo-head{display:grid;grid-template-columns:1.3fr repeat(4,1fr);background:var(--bg3);border-bottom:1px solid var(--bdr);}.demo-row{display:grid;grid-template-columns:1.3fr repeat(4,1fr);border-bottom:1px solid var(--bdr);transition:background .2s;}.demo-row:last-child{border-bottom:none;}.demo-row:hover{background:var(--bg2);}.demo-hcell,.demo-cell{padding:13px 18px;font-size:13px;border-right:1px solid var(--bdr);line-height:1.4;}.demo-hcell:last-child,.demo-cell:last-child{border-right:none;}.demo-hcell{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}.demo-cell{color:var(--dim);}.demo-cell:first-child{color:var(--ink2);font-weight:500;}.demo-cell.hi{color:var(--ink);font-weight:600;}.demo-cell.lo{font-style:italic;}
+
+/* METRIC FRAMEWORK */
+.mf{border:1px solid var(--bdr);margin-bottom:52px;}.mf-row{display:grid;grid-template-columns:190px 1fr;border-bottom:1px solid var(--bdr);transition:background .2s;}.mf-row:last-child{border-bottom:none;}.mf-row:hover{background:var(--bg2);}.mf-stage{padding:20px 22px;font-family:var(--fh);font-size:14px;font-weight:600;color:var(--ink);border-right:1px solid var(--bdr);display:flex;align-items:center;}.mf-detail{padding:20px 22px;font-size:13.5px;color:var(--dim);line-height:1.7;}
+
+/* SOURCES STRIP */
+.src-strip{display:flex;gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:0;}.src-item{flex:1;background:var(--white);padding:18px 22px;display:flex;align-items:center;gap:12px;}.src-dot{width:7px;height:7px;flex-shrink:0;}.src-txt{font-size:12.5px;color:var(--dim);}.src-txt strong{color:var(--ink2);font-weight:500;}
+
+/* PAGE NAV */
+.pnav{display:flex;border-top:1px solid var(--bdr);}.pn{flex:1;padding:30px 36px;border-right:1px solid var(--bdr);text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:background .2s;}.pn:last-child{border-right:none;}.pn:hover{background:var(--bg2);}.pn-dir{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}.pn-title{font-family:var(--fh);font-size:18px;font-weight:600;color:var(--ink);line-height:1.2;}.pn-desc{font-size:12.5px;color:var(--dim);line-height:1.4;}
+
+/* FOOTER */
+.site-footer{padding:44px 52px;border-top:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}.f-logo-svg{height:17px;width:auto;display:block;}.f-copy{font-size:12px;color:var(--dim);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .62s ease,transform .62s ease;}.reveal.in{opacity:1;transform:none;}
+
+@media(max-width:900px){.method-cols,.mc-grid{grid-template-columns:1fr 1fr;}.tension-grid,.svn,.opp-list,.ov-grid{grid-template-columns:1fr;}.rec-row{grid-template-columns:1fr;}.rec-cell{border-right:none!important;border-bottom:1px solid var(--bdr);}.rec-cell:last-child{border-bottom:none;}.mf-row{grid-template-columns:1fr;}.mf-stage{border-right:none;border-bottom:1px solid var(--bdr);}
+.c3 .ct-head,.c3 .ct-row,.c2 .ct-head,.c2 .ct-row{grid-template-columns:1fr;}.ct-hcell,.ct-cell{border-right:none;border-bottom:1px solid var(--bdr);}.ct-row .ct-cell:last-child{border-bottom:none;}}
+@media(max-width:768px){.nav{padding:0 20px;}.nav-links a:not(.active){display:none;}.hero,.section{padding-left:24px;padding-right:24px;}.method-box{padding:28px 24px;}.method-cols,.mc-grid{grid-template-columns:1fr;}.hn,.sb{border-bottom:1px solid var(--bdr);border-right:none;}.hn:last-child,.sb:last-child{border-bottom:none;}.pnav{flex-direction:column;}.pn{border-right:none;border-bottom:1px solid var(--bdr);}.src-strip{flex-direction:column;}.site-footer{padding:36px 24px;}.demo-head,.demo-row{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav class="nav"><a href="index.html" class="nav-logo"><svg style="height:20px;width:auto;display:block;" width="433" height="88" viewBox="0 0 433 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M151.226 0.0939512C222.159 -3.1883 227.121 80.5804 161.842 86.7977C137.434 89.2802 108.27 76.0965 105.241 49.159C101.914 19.5667 123.971 3.03745 151.226 0.0939512ZM159.335 70.3247C175.107 70.0279 191.296 59.9687 190.543 42.6267C189.717 23.5917 171.077 15.9692 154.704 16.4832C154.102 16.5027 153.5 16.5389 152.9 16.5922C143.252 17.3999 134.141 20.0752 127.645 27.7702C123.474 32.7085 121.438 39.1037 121.988 45.5447C122.57 52.2282 125.823 58.3947 131.009 62.65C138.723 69.0505 149.543 71.1204 159.335 70.3247Z" fill="black"/>
+<path d="M235.461 2.1032C254.395 1.5947 273.673 2.30395 292.63 2.0552C300.853 1.94745 310.61 5.10096 315.188 12.3367C320.35 20.501 319.615 35.9097 310.865 41.4327C325.495 46.4694 327.865 63.2062 320.587 75.4352C318.67 77.9497 316.24 80.0255 313.455 81.5232C306.322 85.364 299.338 85.031 291.508 85.0372L275.642 85.0437C263.17 85.0452 250.645 85.066 238.17 85.0227C237.176 85.0192 235.804 84.899 234.863 84.611C234.398 82.611 234.551 73.6624 234.55 71.0767L234.547 43.597L234.557 15.9277C234.57 11.837 234.53 7.5707 234.629 3.4787C234.648 2.69495 234.974 2.5092 235.461 2.1032ZM251.49 68.9119C262.628 68.8187 273.762 68.7905 284.9 68.8275C289.732 68.8312 294.632 69.0099 299.455 68.7622C301.84 68.6399 302.95 68.0895 304.888 66.7615C309.345 62.0947 308.263 52.3764 300.845 51.5082C296.273 50.9732 291.83 51.1285 287.235 51.1295L264.367 51.1292C260.832 51.1247 255.1 51.2434 251.742 50.9854C251.257 52.9832 251.528 66.0817 251.49 68.9119ZM251.503 35.3927C266.045 34.997 280.8 35.6062 295.348 35.1595C296.508 35.1237 298.353 34.039 299.195 33.253C303.53 28.0172 302.315 19.2162 294.638 18.4525C290.643 18.055 286.673 18.1897 282.663 18.1927L262.345 18.2135C259.128 18.2172 254.655 18.3545 251.52 18.1712L251.503 35.3927Z" fill="black"/>
+<path d="M354.478 2.08096L408.89 2.0417L422.635 2.04096C424.858 2.04121 429.763 1.90621 431.685 2.35671C432.03 3.46071 429.08 17.0617 428.478 17.8697C426.53 18.6472 376.78 18.1927 370.728 18.2417C370.843 23.931 370.825 29.622 370.678 35.3105C374.22 35.4767 379.728 35.2917 383.395 35.288L410.075 35.2712C414.778 35.2705 421.02 35.1102 425.6 35.5627C425.725 40.766 425.585 45.943 425.595 51.1492C422.05 50.9552 417.445 51.1215 413.805 51.1247L390.938 51.1345L370.753 51.0392C370.783 56.5512 370.993 63.3319 370.663 68.7244C374.785 69.1494 383.478 68.7857 387.875 68.8455C401.438 69.0297 415.253 68.5265 428.815 69.0405C429.355 73.4495 431.142 80.625 432.272 84.974C406.612 85.349 379.725 85.1802 354.025 85.0032C353.608 70.5142 353.99 54.0767 353.995 39.4505L353.998 16.1662C353.998 13.7367 353.713 3.33946 354.478 2.08096Z" fill="black"/>
+<path d="M73.0393 0.595947C75.4728 1.22345 85.624 9.37569 88.501 11.4059C87.2193 14.0639 83.456 18.4897 81.5048 20.9527L70.411 34.9324C68.1953 37.7244 65.5415 40.9097 63.5493 43.8117L62.869 44.3522C62.5445 44.4162 61.7588 44.5375 61.1428 43.9947C58.2805 41.4337 51.0258 37.3487 49.086 34.5009C48.453 33.5714 60.2793 17.7994 61.3515 16.4039C65.3308 11.2254 68.9333 5.4402 73.0393 0.595947Z" fill="black"/>
+<path d="M0 2.23794C2.57463 1.92719 18.6967 1.67519 20.6811 2.48569C21.7572 4.28444 21.25 26.8379 21.201 30.6742C38.3545 43.4162 56.055 55.7387 73.2538 68.4099C76.1675 70.5567 92.6395 82.0504 94.0178 83.7959L93.9805 84.5494C92.7077 85.5182 70.5302 84.8752 67.1357 84.9919C64.3227 85.0887 50.2538 74.0109 47.027 71.5572C38.6063 65.1534 29.2297 58.9517 21.0696 52.3042C21.6014 54.9439 21.5264 82.3907 20.7894 84.5032C19.6545 85.3947 2.56698 85.0599 0 84.9072V82.2814C0.997795 80.7662 2.16669 74.4437 2.5494 72.4847C6.2271 52.8017 6.11018 32.5974 2.20491 12.9587C1.77451 10.8474 1.05229 6.21994 0 4.65319V2.23794Z" fill="black"/>
+</svg></a><div class="nav-links"><a href="index.html">Início</a><a href="pesquisa-primaria.html">Pesquisa Primária</a><a href="pesquisa-secundaria.html">Pesquisa Secundária</a><a href="insights-combinados.html" class="active">Insights</a></div></nav>
+<div style="padding-top:60px">
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="h-ch reveal">03 / 03 · Insights Combinados</div>
+  <h1 class="hero-h1 reveal">O que os dados<br><em>dizem juntos</em></h1>
+  <p class="hero-lead reveal">Cruzando o que os consumidores declararam com o que os dados reais dos clientes KOBE mostram — padrões, tensões e oportunidades de produto.</p>
+  <div class="src-strip reveal">
+    <div class="src-item"><div class="src-dot" style="background:#000;"></div><div class="src-txt"><strong>Pesquisa Primária:</strong> 128 respondentes · questionário comportamental</div></div>
+    <div class="src-item"><div class="src-dot" style="background:#1A1A1A;border:1px solid #D5D5D3;"></div><div class="src-txt"><strong>Pesquisa Secundária:</strong> 13 clientes GA4 · desk research acadêmico</div></div>
+    <div class="src-item"><div class="src-dot" style="background:var(--bg3);border:1px solid var(--bdr);"></div><div class="src-txt"><strong>Cruzamento:</strong> confirmações, contradições e oportunidades</div></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="eyebrow reveal">Principais insights</div>
+  <h2 class="s-h2 reveal">As quatro tensões centrais</h2>
+  <p class="s-lead reveal">Os achados mais poderosos emergem onde as duas fontes se confirmam — ou onde se contradizem. Estas tensões devem guiar decisões de produto.</p>
+  <div class="tension-grid reveal">
+    <div class="tcard t1">
+      <div class="tc-ey">Tensão 1 · Promoção vs. Retenção</div>
+      <div class="tc-num">76%</div>
+      <div class="tc-title">Baixam por promoção, mas promoção não retém</div>
+      <p class="tc-body">Primária: 76% baixam por promoção. GA4: queda brusca de retenção no D1, apps maiores chegam a ~2%. <strong>O problema não é atrair — é converter a visita única em hábito.</strong> Onboarding é o momento mais negligenciado e mais crítico.</p>
+    </div>
+    <div class="tcard t2">
+      <div class="tc-ey">Tensão 2 · Push bloqueado vs. Push eficaz</div>
+      <div class="tc-num">50%</div>
+      <div class="tc-title">Bloqueiam push, mas push gera as melhores sessões</div>
+      <p class="tc-body">50% bloqueiam; 77% citam excesso como motivo de abandono. Mas GA4 mostra que sessões via push têm o maior tempo de engajamento. <strong>O canal é poderoso — a estratégia de uso é que precisa mudar.</strong></p>
+    </div>
+    <div class="tcard t3">
+      <div class="tc-ey">Tensão 3 · Conversão por segmento</div>
+      <div class="tc-num">~46%</div>
+      <div class="tc-title">vs. ~2% — segmento define tudo</div>
+      <p class="tc-body">Farmácia/mercado converte ~46% via app. Moda e eletrônicos ficam em ~2%. Não é falha de produto — é natureza do segmento. <strong>Pesquisa primária confirma:</strong> moda é canal de browsing, mercado é canal de execução.</p>
+    </div>
+    <div class="tcard t4">
+      <div class="tc-ey">Tensão 4 · Volume vs. Qualidade</div>
+      <div class="tc-num">20%</div>
+      <div class="tc-title">D1 nos menores vs. ~2% nos maiores</div>
+      <p class="tc-body">Biostévi, Crocs e Baianão retêm 20% no D1. Apps maiores chegam a ~2%. <strong>A pesquisa primária explica:</strong> confiança na marca e vínculo prévio são fatores-chave. Aquisição qualificada supera volume bruto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Debrief · Análise aprofundada</div>
+  <h2 class="s-h2 reveal">8 insights do cruzamento</h2>
+  <p class="s-lead reveal">Cada insight combina evidências das duas fontes e aponta para uma implicação prática de produto, estratégia ou posicionamento.</p>
+  <div class="insight-cards reveal">
+    <div class="ic"><span class="ic-icon">⚡</span><div class="ic-src"><span class="tag">Pesquisa Primária</span><span class="tag">Dados GA4</span></div><h3 class="ic-h">Promoção abre a porta — experiência mantém o usuário</h3><p class="ic-b">76% baixam por promoção e GA4 confirma picos em datas sazonais. Mas queda brusca no D1 mostra que <strong>o usuário que entrou só por promoção sai assim que ela acaba.</strong> Onboarding que demonstra valor contínuo é a única saída do ciclo.</p></div>
+    <div class="ic"><span class="ic-icon">📍</span><div class="ic-src"><span class="tag">Pesquisa Primária</span><span class="tag">Desk Research</span></div><h3 class="ic-h">App vence na execução — site vence na pesquisa</h3><p class="ic-b">80% preferem app quando há promoção exclusiva ou compra decidida. 70% preferem sites para comparar preços. <strong>Tentar replicar marketplace no app de uma marca específica é a estratégia errada.</strong> Otimizar a jornada pós-decisão é o caminho.</p></div>
+    <div class="ic"><span class="ic-icon">🔔</span><div class="ic-src"><span class="tag">Pesquisa Primária</span><span class="tag">Dados GA4</span></div><h3 class="ic-h">Push: o canal mais poderoso e mais desperdiçado</h3><p class="ic-b">Sessões via push têm o maior engajamento médio. Mas 50% bloqueiam e 77% citam excesso como motivo de abandono. <strong>Status do pedido é o tipo mais aceito (72%).</strong> Priorizar transacional sobre promocional resolve a tensão.</p></div>
+    <div class="ic"><span class="ic-icon">🎯</span><div class="ic-src"><span class="tag">Dados GA4</span><span class="tag">Desk Research</span></div><h3 class="ic-h">Segmento define estratégia — não existe receita universal</h3><p class="ic-b">~46% de conversão em farmácia vs. ~2% em moda — não é falha, é natureza. A pesquisa primária confirma padrões distintos de uso. <strong>O SaaS precisa de módulos e métricas específicas por segmento</strong> para ser relevante em cada contexto.</p></div>
+    <div class="ic"><span class="ic-icon">👥</span><div class="ic-src"><span class="tag">Dados GA4</span><span class="tag">Pesquisa Primária</span></div><h3 class="ic-h">Base pequena, vínculo forte — qualidade supera volume</h3><p class="ic-b">Biostévi, Crocs e Baianão atingem 20% de retenção D1. Apps maiores chegam a ~2%. <strong>Confiança na marca e vínculo prévio são determinantes</strong> — confirmados pela pesquisa primária. Aquisição qualificada vale mais do que volume bruto.</p></div>
+    <div class="ic"><span class="ic-icon">📦</span><div class="ic-src"><span class="tag">Pesquisa Primária</span><span class="tag">Desk Research</span></div><h3 class="ic-h">Rastreio: a feature mais valiosa e mais subutilizada</h3><p class="ic-b">71% usam rastreio como principal funcionalidade. 72% acham status de pedido a notificação mais útil. Mas a maioria dos apps trata push como canal de marketing. <strong>Inverter essa lógica aumenta opt-in e engajamento orgânico.</strong></p></div>
+    <div class="ic"><span class="ic-icon">💎</span><div class="ic-src"><span class="tag">Pesquisa Primária</span><span class="tag">Desk Research</span></div><h3 class="ic-h">Benefícios recorrentes valem mais do que preço isolado</h3><p class="ic-b">Preço é o critério mais citado (73%), mas cashback/pontos (53%) e facilidade (58%) vêm logo em seguida. Renda alta compra com quase 3× mais frequência. <strong>Programas de fidelidade bem executados convertem ocasionais em heavy users.</strong></p></div>
+    <div class="ic"><span class="ic-icon">🌱</span><div class="ic-src"><span class="tag">Dados GA4</span><span class="tag">Desk Research</span></div><h3 class="ic-h">Engajamento crescente supera conversão pontual</h3><p class="ic-b">Vivara (0,54% de conversão) e Havaianas têm curva de engajamento ascendente. <strong>Em moda, engajamento crescente prediz LTV melhor do que conversão imediata.</strong> A métrica certa para o segmento muda completamente a leitura de sucesso.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="eyebrow reveal">Debrief · Alinhamentos e divergências</div>
+  <h2 class="s-h2 reveal">Onde as fontes se encontram — e onde divergem</h2>
+  <p class="s-lead reveal">Onde as duas fontes convergem, a confiança nos achados é maior. Onde divergem, estão as hipóteses mais interessantes.</p>
+  <div class="svn reveal">
+    <div class="svn-col"><h4 class="svn-head">✓ As duas fontes concordam</h4>
+      <div class="svn-item"><strong>Promoção é o principal gatilho de download</strong> — 76% na primária e picos de instalação nos dados GA4 em períodos promocionais.</div>
+      <div class="svn-item"><strong>Rastreio do pedido é a feature mais valorizada</strong> — 71% declaram e GA4 confirma alto engajamento com notificações transacionais.</div>
+      <div class="svn-item"><strong>Segmentação é essencial</strong> — comportamento declarado por categoria coincide com diferenças reais de conversão e engajamento nos dados dos clientes.</div>
+      <div class="svn-item"><strong>Push excessivo é o maior risco de churn</strong> — 77% declaram e dados D30 mostram correlação com queda de uso em apps com alta frequência de push.</div>
+      <div class="svn-item"><strong>Confiança na marca precede a retenção</strong> — citada na primária e corroborada pelo padrão D1 superior em apps com forte identidade de marca.</div>
+    </div>
+    <div class="svn-col"><h4 class="svn-head light">≠ Onde as fontes divergem</h4>
+      <div class="svn-item"><strong>Push é bloqueado pelos usuários, mas eficaz nos dados.</strong> 50% bloqueiam — mas GA4 mostra sessões via push com maior engajamento do que orgânico. O problema é a estratégia, não o canal.</div>
+      <div class="svn-item"><strong>Baixa conversão em moda não é fracasso.</strong> Vivara e Havaianas têm engajamento crescente com conversão baixa. Em moda, a métrica relevante não é conversão — é engajamento ao longo do tempo.</div>
+      <div class="svn-item"><strong>Frequência declarada pode divergir da real.</strong> 30% declaram comprar via app semanalmente, mas GA4 de moda e eletrônicos sugere frequência real menor. A primária captura intenção, não comportamento.</div>
+      <div class="svn-item"><strong>Savegnago invalida o padrão do segmento.</strong> Mercado converte ~46% — mas Savegnago tem 0,5%. Problemas locais de produto ou UX podem invalidar completamente padrões de segmento.</div>
+    </div>
+  </div>
+  <div class="pullquote reveal">
+    <p class="pq-t">"Não existe uma única estratégia de app que funcione para todos os segmentos. O que muda não é só o produto — é a métrica certa para medir sucesso."</p>
+    <cite class="pq-c">Síntese dos insights combinados · Pesquisa SaaS KOBE, Fase 1</cite>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="eyebrow reveal">Debrief · Oportunidades de produto</div>
+  <h2 class="s-h2 reveal">O que fazer com isso tudo</h2>
+  <p class="s-lead reveal">A pesquisa revela claramente onde estão as maiores alavancas de impacto no produto, na estratégia de clientes e no posicionamento do SaaS.</p>
+  <div class="opp-list reveal">
+    <div class="opp"><div class="opp-n">01</div><h3 class="opp-t">Subsegmentação de clientes</h3><p class="opp-b">Identificar subsegmentos com base em padrões de compra, retenção e engajamento para definir <strong>propostas de valor mais específicas.</strong> Criar variações de módulos do SaaS para diferentes perfis — não um produto genérico para todos.</p><p class="opp-ev">Evidência: diferença de ~46% vs. ~2% de conversão por segmento; padrão de D1 distinto por tamanho de base e vínculo com a marca.</p></div>
+    <div class="opp"><div class="opp-n">02</div><h3 class="opp-t">Dashboard de impacto por segmento</h3><p class="opp-b">Criar um painel que permita <strong>mensurar e comparar o impacto de decisões de produto por subsegmento.</strong> Comparar adoção de features antes e depois de intervenções específicas.</p><p class="opp-ev">Evidência: Savegnago como outlier — produto local invalidando padrão de mercado, sem instrumentação para diagnosticar a causa.</p></div>
+    <div class="opp"><div class="opp-n">03</div><h3 class="opp-t">Estratégia de push por tipo de conteúdo</h3><p class="opp-b">Separar push transacional de push promocional e <strong>priorizar rastreio e status como padrão.</strong> Isso resolve a tensão central: push tem o maior engajamento, mas 50% o bloqueiam por excesso de propaganda.</p><p class="opp-ev">Evidência: 72% acham status útil; 77% se irritam com excesso; sessões via push têm maior engajamento no GA4.</p></div>
+    <div class="opp"><div class="opp-n">04</div><h3 class="opp-t">Onboarding orientado por motivo de download</h3><p class="opp-b">Se o motivo de download é promoção (76%), o onboarding precisa <strong>mostrar o valor além da promoção imediata.</strong> 34% dizem que o mais importante é entender como funciona. Simplicidade e clareza salvam o D1.</p><p class="opp-ev">Evidência: queda de D1 para ~2% nos apps maiores; Biostévi, Crocs e Baianão com 20% D1 — padrão replicável.</p></div>
+  </div>
+  <div class="eyebrow reveal" style="margin-top:8px">Recomendações práticas</div>
+  <h3 class="s-h3 reveal">Próximos passos sugeridos</h3>
+  <div class="rec-table reveal">
+    <div class="rec-head-row">O que fazer a partir desta pesquisa</div>
+    <div class="rec-row"><div class="rec-cell">Onboarding</div><div class="rec-cell hi">Redesenhar os primeiros 3 dias para mostrar valor contínuo além da promoção de download</div><div class="rec-cell action">Alta prioridade — impacto direto em D1 e D7</div></div>
+    <div class="rec-row"><div class="rec-cell">Push notifications</div><div class="rec-cell hi">Separar push transacional de promocional; priorizar rastreio e status como padrão</div><div class="rec-cell action">Alta prioridade — resolve churn silencioso por excesso</div></div>
+    <div class="rec-row"><div class="rec-cell">Segmentação SaaS</div><div class="rec-cell hi">Criar módulos ou configurações específicas por segmento (mercado, moda, eletrônicos)</div><div class="rec-cell action">Média prioridade — aumenta valor percebido pelo cliente</div></div>
+    <div class="rec-row"><div class="rec-cell">Métricas por segmento</div><div class="rec-cell hi">Definir north star metric diferente: conversão para mercado, engajamento crescente para moda</div><div class="rec-cell action">Média prioridade — alinha expectativas de sucesso</div></div>
+    <div class="rec-row"><div class="rec-cell">Fase 2 — qualitativo</div><div class="rec-cell hi">Entender por que Savegnago tem 0,5% de conversão em segmento de ~46%</div><div class="rec-cell action">Próxima fase — pesquisa qualitativa com usuários</div></div>
+  </div>
+</section>
+
+<div class="pnav">
+  <a href="pesquisa-secundaria.html" class="pn"><span class="pn-dir">← Anterior</span><span class="pn-title">Pesquisa Secundária</span><span class="pn-desc">Desk research + dados GA4 dos clientes KOBE</span></a>
+  <a href="index.html" class="pn"><span class="pn-dir">↑ Início</span><span class="pn-title">Visão Geral</span><span class="pn-desc">Sumário e navegação principal</span></a>
+</div>
+</div>
+<footer class="site-footer"><span class="f-logo"><svg style="height:17px;width:auto;display:block;" width="433" height="88" viewBox="0 0 433 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M151.226 0.0939512C222.159 -3.1883 227.121 80.5804 161.842 86.7977C137.434 89.2802 108.27 76.0965 105.241 49.159C101.914 19.5667 123.971 3.03745 151.226 0.0939512ZM159.335 70.3247C175.107 70.0279 191.296 59.9687 190.543 42.6267C189.717 23.5917 171.077 15.9692 154.704 16.4832C154.102 16.5027 153.5 16.5389 152.9 16.5922C143.252 17.3999 134.141 20.0752 127.645 27.7702C123.474 32.7085 121.438 39.1037 121.988 45.5447C122.57 52.2282 125.823 58.3947 131.009 62.65C138.723 69.0505 149.543 71.1204 159.335 70.3247Z" fill="black"/>
+<path d="M235.461 2.1032C254.395 1.5947 273.673 2.30395 292.63 2.0552C300.853 1.94745 310.61 5.10096 315.188 12.3367C320.35 20.501 319.615 35.9097 310.865 41.4327C325.495 46.4694 327.865 63.2062 320.587 75.4352C318.67 77.9497 316.24 80.0255 313.455 81.5232C306.322 85.364 299.338 85.031 291.508 85.0372L275.642 85.0437C263.17 85.0452 250.645 85.066 238.17 85.0227C237.176 85.0192 235.804 84.899 234.863 84.611C234.398 82.611 234.551 73.6624 234.55 71.0767L234.547 43.597L234.557 15.9277C234.57 11.837 234.53 7.5707 234.629 3.4787C234.648 2.69495 234.974 2.5092 235.461 2.1032ZM251.49 68.9119C262.628 68.8187 273.762 68.7905 284.9 68.8275C289.732 68.8312 294.632 69.0099 299.455 68.7622C301.84 68.6399 302.95 68.0895 304.888 66.7615C309.345 62.0947 308.263 52.3764 300.845 51.5082C296.273 50.9732 291.83 51.1285 287.235 51.1295L264.367 51.1292C260.832 51.1247 255.1 51.2434 251.742 50.9854C251.257 52.9832 251.528 66.0817 251.49 68.9119ZM251.503 35.3927C266.045 34.997 280.8 35.6062 295.348 35.1595C296.508 35.1237 298.353 34.039 299.195 33.253C303.53 28.0172 302.315 19.2162 294.638 18.4525C290.643 18.055 286.673 18.1897 282.663 18.1927L262.345 18.2135C259.128 18.2172 254.655 18.3545 251.52 18.1712L251.503 35.3927Z" fill="black"/>
+<path d="M354.478 2.08096L408.89 2.0417L422.635 2.04096C424.858 2.04121 429.763 1.90621 431.685 2.35671C432.03 3.46071 429.08 17.0617 428.478 17.8697C426.53 18.6472 376.78 18.1927 370.728 18.2417C370.843 23.931 370.825 29.622 370.678 35.3105C374.22 35.4767 379.728 35.2917 383.395 35.288L410.075 35.2712C414.778 35.2705 421.02 35.1102 425.6 35.5627C425.725 40.766 425.585 45.943 425.595 51.1492C422.05 50.9552 417.445 51.1215 413.805 51.1247L390.938 51.1345L370.753 51.0392C370.783 56.5512 370.993 63.3319 370.663 68.7244C374.785 69.1494 383.478 68.7857 387.875 68.8455C401.438 69.0297 415.253 68.5265 428.815 69.0405C429.355 73.4495 431.142 80.625 432.272 84.974C406.612 85.349 379.725 85.1802 354.025 85.0032C353.608 70.5142 353.99 54.0767 353.995 39.4505L353.998 16.1662C353.998 13.7367 353.713 3.33946 354.478 2.08096Z" fill="black"/>
+<path d="M73.0393 0.595947C75.4728 1.22345 85.624 9.37569 88.501 11.4059C87.2193 14.0639 83.456 18.4897 81.5048 20.9527L70.411 34.9324C68.1953 37.7244 65.5415 40.9097 63.5493 43.8117L62.869 44.3522C62.5445 44.4162 61.7588 44.5375 61.1428 43.9947C58.2805 41.4337 51.0258 37.3487 49.086 34.5009C48.453 33.5714 60.2793 17.7994 61.3515 16.4039C65.3308 11.2254 68.9333 5.4402 73.0393 0.595947Z" fill="black"/>
+<path d="M0 2.23794C2.57463 1.92719 18.6967 1.67519 20.6811 2.48569C21.7572 4.28444 21.25 26.8379 21.201 30.6742C38.3545 43.4162 56.055 55.7387 73.2538 68.4099C76.1675 70.5567 92.6395 82.0504 94.0178 83.7959L93.9805 84.5494C92.7077 85.5182 70.5302 84.8752 67.1357 84.9919C64.3227 85.0887 50.2538 74.0109 47.027 71.5572C38.6063 65.1534 29.2297 58.9517 21.0696 52.3042C21.6014 54.9439 21.5264 82.3907 20.7894 84.5032C19.6545 85.3947 2.56698 85.0599 0 84.9072V82.2814C0.997795 80.7662 2.16669 74.4437 2.5494 72.4847C6.2271 52.8017 6.11018 32.5974 2.20491 12.9587C1.77451 10.8474 1.05229 6.21994 0 4.65319V2.23794Z" fill="black"/>
+</svg></span><span class="f-copy">Pesquisa SaaS · Fase 1 · Janeiro 2026 · Uso interno</span></footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('in'),i*60);obs.unobserve(el.target);}});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
